@@ -138,7 +138,7 @@ function updateImageText() {
       (playButton.textContent = "Bora dnv burrão"),
       (playButton.style.display = "inline-block"),
       void (playButton.onclick = function () {
-            const restart = 'lugia.html?A=' + teclasPadrao['A'] + '&B=' + teclasPadrao['B'] + '&C=' + teclasPadrao['C'] + '&D=' + teclasPadrao['D'] + '&E=' + teclasPadrao['E'] + '&F=' + teclasPadrao['F'] + '&G=' + teclasPadrao['G'] + '&Acerq=' + teclasPadrao['A#'] + '&Ccerq=' + teclasPadrao['C#'] + '&Dcerq=' + teclasPadrao['D#'] + '&Fcerq=' + teclasPadrao['F#'] + '&Gcerq=' + teclasPadrao['G#'];
+            const restart = '?A=' + teclasPadrao['A'] + '&B=' + teclasPadrao['B'] + '&C=' + teclasPadrao['C'] + '&D=' + teclasPadrao['D'] + '&E=' + teclasPadrao['E'] + '&F=' + teclasPadrao['F'] + '&G=' + teclasPadrao['G'] + '&Acerq=' + teclasPadrao['A#'] + '&Ccerq=' + teclasPadrao['C#'] + '&Dcerq=' + teclasPadrao['D#'] + '&Fcerq=' + teclasPadrao['F#'] + '&Gcerq=' + teclasPadrao['G#'];
         window.location.href = restart;
 
       })
@@ -261,7 +261,7 @@ function updateImageText() {
       (playButton.textContent = "Bora dnv"),
       (playButton.style.display = "inline-block"),
       (playButton.onclick = function () {
-         const restart = 'lugia.html?A=' + teclasPadrao['A'] + '&B=' + teclasPadrao['B'] + '&C=' + teclasPadrao['C'] + '&D=' + teclasPadrao['D'] + '&E=' + teclasPadrao['E'] + '&F=' + teclasPadrao['F'] + '&G=' + teclasPadrao['G'] + '&Acerq=' + teclasPadrao['A#'] + '&Ccerq=' + teclasPadrao['C#'] + '&Dcerq=' + teclasPadrao['D#'] + '&Fcerq=' + teclasPadrao['F#'] + '&Gcerq=' + teclasPadrao['G#'];
+         const restart = '?A=' + teclasPadrao['A'] + '&B=' + teclasPadrao['B'] + '&C=' + teclasPadrao['C'] + '&D=' + teclasPadrao['D'] + '&E=' + teclasPadrao['E'] + '&F=' + teclasPadrao['F'] + '&G=' + teclasPadrao['G'] + '&Acerq=' + teclasPadrao['A#'] + '&Ccerq=' + teclasPadrao['C#'] + '&Dcerq=' + teclasPadrao['D#'] + '&Fcerq=' + teclasPadrao['F#'] + '&Gcerq=' + teclasPadrao['G#'];
         window.location.href = restart;
 
       });
