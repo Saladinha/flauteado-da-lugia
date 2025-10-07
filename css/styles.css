@@ -1,3 +1,97 @@
+
+/* Vertical Divider - divisor preto simples */
+.vertical-divider {
+    width: 2px;
+    height: 60px;
+    background: #191919;
+    margin: 0 16px;
+    display: inline-block;
+    border-radius: 1px;
+}
+/* Botão estilizado - button-85 */
+
+.button-disabled {
+    padding: 0.6em 2em;
+    border: none;
+    outline: none;
+    color: rgb(255, 255, 255);
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-85 {
+    padding: 0.6em 2em;
+    border: none;
+    outline: none;
+    color: rgb(255, 255, 255);
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-85:before {
+    content: "";
+    background: linear-gradient(
+        45deg,
+        #ff0000,
+        #ff7300,
+        #fffb00,
+        #48ff00,
+        #00ffd5,
+        #002bff,
+        #7a00ff,
+        #ff00c8,
+        #ff0000
+    );
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing-button-85 20s linear infinite;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 10px;
+}
+
+@keyframes glowing-button-85 {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 400% 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+
+.button-85:after {
+    z-index: -1;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #222;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
 *,
 .main-logo a {
     padding: 0;
@@ -89,8 +183,8 @@ body {
     flex-direction: column;
     font-size: 1.6rem;
     font-family: var(--font-primary);
-    background: var(--color-gray-4);
-    color: var(--color-dark-text);
+    background: var(--color-gray-9);
+    color: var(--color-gray-1);
     transition: background-color .4s ease-in-out
 }
 
@@ -153,16 +247,44 @@ article {
 }
 
 .main-header-container {
-    background: var(--color-purple-alpha);
+
+    background: var(--color-gray-8);
+    padding: 2em;
     height: 100%;
     display: flex;
     align-items: center;
-    border-radius: 0 0 25% 25%
+    transition: background 0.5s ease-in-out;
+    position: relative;
+    overflow: hidden;
 }
 
-.main-footer:hover,
+
 .main-header-container:hover {
-    background-color: var(--color-purple)
+    background: linear-gradient(90deg,
+        #ff0000,
+        #ff7300,
+        #fffb00,
+        #48ff00,
+        #00ffd5,
+        #002bff,
+        #7a00ff,
+        #ff00c8,
+        #ff0000
+    );
+    background-size: 400% 400%;
+    animation: rgb-header-glow 8s linear infinite;
+}
+
+@keyframes rgb-header-glow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .header-link {
@@ -190,18 +312,6 @@ article {
     height: auto
 }
 
-.header-link button {
-    font-size: 2rem;
-    font-weight: 700;
-    padding: 1rem 2rem;
-    border: none;
-    background: var(--color-gray-2);
-    color: var(--color-primary-dark);
-    cursor: pointer;
-    margin-left: auto;
-    border-radius: 20%
-}
-
 .header-disabled button {
     background: var(--color-gray-5);
     color: var(--color-primary-dark)
@@ -209,20 +319,13 @@ article {
 
 .main-logo-text {
     height: 300px;
+    border: 5px dotted #fff;
 }
 
 .main-logo-icon {
     margin-right: 2rem
 }
 
-.plaintext-button {
-    display: inline;
-    border: none;
-    background: 0 0;
-    cursor: pointer;
-    color: var(--color-primary);
-    font-size: 1.6rem
-}
 
 .tutorial-text,
 .zapdos-tutorial-text {
@@ -256,12 +359,8 @@ article {
 .text-wrapper a,
 .text-wrapper button {
     padding: 1rem 2rem;
-    margin-top: .5rem;
     font-family: var(--font-headings);
-    background-color: var(--color-purple);
-    color: var(--color-white);
     cursor: pointer;
-    border-radius: 25%
 }
 
 .main-content {
@@ -331,31 +430,17 @@ article {
     text-align: center;
     display: inline-block;
     padding: 1rem;
-    background-color: #00ffff15;
-    border: 2px solid #ddd;
-    border-radius: 30%
+    
 }
+
 
 .bubble-text h4,
 .contact-container {
     display: flex;
     padding: 1rem;
-    background-color: #00ffff15;
     text-align: center
 }
 
-.bubble-hover h2:hover,
-.bubble-hover h3:hover,
-.bubble-hover h4:hover {
-    transform: scale(1.05);
-    transition-delay: 0s
-}
-
-.bubble-text h4 {
-    align-items: center;
-    font-size: 2rem;
-    border-radius: 30%
-}
 
 .bubble-text h4 i,
 .bubble-text h4 img {
@@ -464,6 +549,7 @@ article {
 }
 
 .image-container {
+    border: 3px solid #fff;
     position: relative
 }
 
@@ -597,14 +683,13 @@ img.blur {
     
 }
 .hotkey-button-row button {
-    margin: 0 0 0 0;
+    margin: 0 10px;
     padding: 0 0.5rem;
     font-family: var(--font-headings);
     background-color: var(--color-purple);
     color: var(--color-white);
     border-radius: 25%;
     cursor: pointer;
-    white-space: pre-line;
     text-align: center;
     min-width: 8rem;
     max-width: 12rem;
@@ -614,7 +699,7 @@ img.blur {
 }
 .hotkey-button-row-disabled {
   
-    background-color: gray !important;
+    background: none !important
 }
 
 .flute-score-element,
@@ -665,66 +750,131 @@ img.blur {
 }
 
 .fa-check {
-    color: green
+    color: rgb(124, 168, 124)
 }
 
 .fa-times {
-    color: red
+    color: rgb(179, 101, 101)
 }
 
 .fa-forward {
-    color: #00f
+    color: rgb(142, 142, 194)
 }
 
-.toggle-switch {
+
+/* Toggle Switch Flip Style */
+.checkbox-wrapper-10 .tgl {
+    display: none;
+}
+.checkbox-wrapper-10 .tgl,
+.checkbox-wrapper-10 .tgl:after,
+.checkbox-wrapper-10 .tgl:before,
+.checkbox-wrapper-10 .tgl *,
+.checkbox-wrapper-10 .tgl *:after,
+.checkbox-wrapper-10 .tgl *:before,
+.checkbox-wrapper-10 .tgl + .tgl-btn {
+    box-sizing: border-box;
+}
+.checkbox-wrapper-10 .tgl::-moz-selection,
+.checkbox-wrapper-10 .tgl:after::-moz-selection,
+.checkbox-wrapper-10 .tgl:before::-moz-selection,
+.checkbox-wrapper-10 .tgl *::-moz-selection,
+.checkbox-wrapper-10 .tgl *:after::-moz-selection,
+.checkbox-wrapper-10 .tgl *:before::-moz-selection,
+.checkbox-wrapper-10 .tgl + .tgl-btn::-moz-selection,
+.checkbox-wrapper-10 .tgl::selection,
+.checkbox-wrapper-10 .tgl:after::selection,
+.checkbox-wrapper-10 .tgl:before::selection,
+.checkbox-wrapper-10 .tgl *::selection,
+.checkbox-wrapper-10 .tgl *:after::selection,
+.checkbox-wrapper-10 .tgl *:before::selection,
+.checkbox-wrapper-10 .tgl + .tgl-btn::selection {
+    background: none;
+}
+.checkbox-wrapper-10 .tgl + .tgl-btn {
+    outline: 0;
+    display: block;
+    width: 4em;
+    height: 2em;
     position: relative;
+    cursor: pointer;
+    -webkit-user-select: none;
+         -moz-user-select: none;
+            -ms-user-select: none;
+                    user-select: none;
+}
+.checkbox-wrapper-10 .tgl + .tgl-btn:after,
+.checkbox-wrapper-10 .tgl + .tgl-btn:before {
+    position: relative;
+    display: block;
+    content: "";
+    width: 50%;
+    height: 100%;
+}
+.checkbox-wrapper-10 .tgl + .tgl-btn:after {
+    left: 0;
+}
+.checkbox-wrapper-10 .tgl + .tgl-btn:before {
+    display: none;
+}
+.checkbox-wrapper-10 .tgl:checked + .tgl-btn:after {
+    left: 50%;
+}
+
+.checkbox-wrapper-10 .tgl-flip + .tgl-btn {
+    padding: 2px;
+    transition: all 0.2s ease;
+    font-family: sans-serif;
+    perspective: 100px;
+}
+.checkbox-wrapper-10 .tgl-flip + .tgl-btn:after,
+.checkbox-wrapper-10 .tgl-flip + .tgl-btn:before {
     display: inline-block;
-    width: 60px;
-    height: 34px
-}
-
-.toggle-switch input[type=checkbox] {
-    opacity: 0;
-    width: 0;
-    height: 0
-}
-
-.toggle-switch-label {
+    transition: all 0.4s ease;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    line-height: 2em;
+    font-weight: bold;
+    color: #fff;
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    cursor: pointer;
-    border-radius: 34px;
-    background-color: #ccc;
-    transition: background-color .4s
+    -webkit-backface-visibility: hidden;
+                    backface-visibility: hidden;
+    border-radius: 4px;
 }
-
-.toggle-switch-label::before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    border-radius: 50%;
-    background-color: #fff;
-    transition: transform .4s
+.checkbox-wrapper-10 .tgl-flip + .tgl-btn:after {
+    content: attr(data-tg-on);
+    background: #02C66F;
+    transform: rotateY(-180deg);
 }
-
-.toggle-switch input:checked+.toggle-switch-label {
-    background-color: #4caf50
+.checkbox-wrapper-10 .tgl-flip + .tgl-btn:before {
+    background: #FF3A19;
+    content: attr(data-tg-off);
 }
-
-.toggle-switch input:checked+.toggle-switch-label::before {
-    transform: translateX(26px)
+.checkbox-wrapper-10 .tgl-flip + .tgl-btn:active:before {
+    transform: rotateY(-20deg);
+}
+.checkbox-wrapper-10 .tgl-flip:checked + .tgl-btn:before {
+    transform: rotateY(180deg);
+}
+.checkbox-wrapper-10 .tgl-flip:checked + .tgl-btn:after {
+    transform: rotateY(0);
+    left: 0;
+    background: #7FC6A6;
+}
+.checkbox-wrapper-10 .tgl-flip:checked + .tgl-btn:active:after {
+    transform: rotateY(20deg);
 }
 
 .lugia-text {
     display: flex;
     align-items: center;
-    text-align: center
+    text-align: center;
+    background-color: white;
+    color:#000;
+    padding: 0 2em;
 }
 
 .tutorial-text table {
@@ -746,4 +896,48 @@ img.blur {
 .zapdos-tutorial-text table {
     font-family: var(--font-headings);
     margin-top: 3rem
+}
+
+
+
+.wrapper
+{
+	padding-bottom: 90px;
+}
+
+.divider
+{
+	position: relative;
+	margin-top: 50px;
+    margin-bottom: 50px;
+	height: 1px;
+    width: 90%;
+}
+
+.div-transparent:before
+{
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 5%;
+	right: 5%;
+	width: 90%;
+	height: 1px;
+	background-image: linear-gradient(to right, transparent, rgb(48,49,51), transparent);
+}
+
+.div-dot:after
+{
+	content: "";
+	position: absolute;
+	z-index: 1;
+	top: -9px;
+	left: calc(50% - 9px);
+	width: 18px;
+	height: 18px;
+	background-color: rgb(255, 0, 212);
+	border: 1px solid rgb(255, 255, 255);
+	border-radius: 50%;
+	box-shadow: inset 0 0 0 2px white,
+					0 0 0 4px white;
 }

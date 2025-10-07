@@ -381,6 +381,7 @@ const urlParams = new URLSearchParams(queryString);
     }
 
     function gerarComandoAPartirDoCodigo(codigo) {
+      console.log("Gerando comando a partir do código:", codigo);
         if(codigo == null || codigo == "") return "";
 
         if(codigo.includes("cerq")){
@@ -397,17 +398,20 @@ const urlParams = new URLSearchParams(queryString);
         if(idBotao == null || idBotao == ""){
             for(let i=0; i<idBotoes.length; i++){
                   document.getElementById(idBotoes[i]).disabled = false;
-                document.getElementById(idBotoes[i]).classList.remove('hotkey-button-row-disabled');
+                     document.getElementById(idBotoes[i]).classList.remove('button-85-disabled');
+            document.getElementById(idBotoes[i]).classList.add('button-85');
             }
             return;
         }
         for(let i=0; i<idBotoes.length; i++){
             if(idBotoes[i] != idBotao){
             document.getElementById(idBotoes[i]).disabled = true;
-            document.getElementById(idBotoes[i]).classList.add('hotkey-button-row-disabled');
+            document.getElementById(idBotoes[i]).classList.add('button-85-disabled');
+            document.getElementById(idBotoes[i]).classList.remove('button-85');
             } else {
                 document.getElementById(idBotoes[i]).disabled = false;
-                document.getElementById(idBotoes[i]).classList.remove('hotkey-button-row-disabled');
+                 document.getElementById(idBotoes[i]).classList.remove('button-85-disabled');
+            document.getElementById(idBotoes[i]).classList.add('button-85');
             }
         }
     }
@@ -536,3 +540,17 @@ const urlParams = new URLSearchParams(queryString);
         // console.log("Tecla esperada:", codigoEsperado);
       return codigo === codigoEsperado;
     }
+
+function copiarUrlComAsHotkeysProClipboard(){
+  document.getElementById('copyButton').addEventListener('click', async () => {
+  const text = document.getElementById('textToCopy').innerText;
+  try {
+    await navigator.clipboard.writeText(text);
+    alert('Text copied to clipboard!');
+  } catch (err) {
+    console.error('Failed to copy text: ', err);
+    alert('Failed to copy text.');
+  }
+});
+}
+  

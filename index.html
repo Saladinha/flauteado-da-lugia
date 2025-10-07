@@ -31,6 +31,8 @@
             <div class="bubble-text">
                 <h2>Ainn vou treinar pra flautear o grosso bem gostosinho</h2>
             </div>
+                     
+            <div class="divider div-transparent div-dot"></div>
             <div class="bubble-text">
                 <h4>Instrução pra burro: aperta f11 pra por em tela cheia.</h4>
             </div>
@@ -38,88 +40,105 @@
                 <h4>Resolvi botar um botão pq sei q vcs n sabem nem onde fica o f11</h4>
                 <div class="start-button-row">
                     <div class="bubble-text flute-score-element">
-                        <button type="button" onclick="toggleFullScreen()">Ligar/Desligar Fullscreen
+                        <button type="button" class="button-85" onclick="toggleFullScreen()">Ligar/Desligar Fullscreen
                         </button>
                     </div>
                 </div>
             </div>
-
+            
+            <div class="divider div-transparent div-dot"></div>
+          
             <div class="lugia-text">
-                <h2>Piscar o fundo qnd acerta e erra</h2>
-                <div class="toggle-switch">
-                    <input type="checkbox" id="background-color-toggle" checked />
-                    <label for="background-color-toggle" class="toggle-switch-label"></label>
-                </div>
-                <h2>Tocar o som qnd fizer merda</h2>
-                <div class="toggle-switch">
-                    <input type="checkbox" id="miss-sounds-toggle" checked />
-                    <label for="miss-sounds-toggle" class="toggle-switch-label"></label>
-                </div>
+                                <h2>Piscar o fundo qnd acerta e erra</h2>
+                                <div class="checkbox-wrapper-10">
+                                    <input class="tgl tgl-flip" id="background-color-toggle" type="checkbox" checked />
+                                    <label class="tgl-btn" data-tg-off="Nope" data-tg-on="Yeah!" for="background-color-toggle"></label>
+                                </div>
+                                <div class="vertical-divider"></div>
+                                <h2>Tocar o som qnd fizer merda</h2>
+                                <div class="checkbox-wrapper-10">
+                                    <input class="tgl tgl-flip" id="miss-sounds-toggle" type="checkbox" checked />
+                                    <label class="tgl-btn" data-tg-off="Nope" data-tg-on="Yeah!" for="miss-sounds-toggle"></label>
+                                </div>
 
             </div>
-                <div class="bubble-text">
-                <h4>Clica nos botões abaixo e bota o coomando que quer pode ser cntrl + alguma coisa ou shift + sei la o que,
-                     só n pode ser os F1-F12 pq tem função no navegador aí vai ficar todo torto</h4>
+            <div class="divider div-transparent div-dot"></div>
+            <div class="bubble-text">
+                <h4>Clica nos botões abaixo e bota o coomando que quer pode ser cntrl + alguma coisa ou shift + sei la o
+                    que,
+                    só n pode ser os F1-F12 pq tem função no navegador aí vai ficar todo torto</h4>
             </div>
-            <div class="hotkey-button-row"> 
+            <div class="hotkey-button-row">
                 <div>
                     <h2>A</h2>
-                    <button id="A_start"></button>
+                    <button id="A_start" class="button-85"></button>
                 </div>
                 <div>
                     <h2>B</h2>
-                    <button id="B_start"></button>
+                    <button id="B_start" class="button-85"></button>
                 </div>
                 <div>
                     <h2>C</h2>
-                    <button id="C_start"></button>
+                    <button id="C_start" class="button-85"></button>
                 </div>
                 <div>
                     <h2>D</h2>
-                    <button id="D_start"></button>
+                    <button id="D_start" class="button-85"></button>
                 </div>
                 <div>
                     <h2>E</h2>
-                    <button id="E_start"></button>
+                    <button id="E_start" class="button-85"></button>
                 </div>
                 <div>
                     <h2>F</h2>
-                    <button id="F_start"></button>
+                    <button id="F_start" class="button-85"></button>
                 </div>
                 <div>
                     <h2>G</h2>
-                    <button id="G_start"></button>
+                    <button id="G_start" class="button-85"></button>
                 </div>
                 <div>
                     <h2>A#</h2>
-                    <button id="Acerq_start"></button>
+                    <button id="Acerq_start" class="button-85"></button>
                 </div>
                 <div>
                     <h2>C#</h2>
-                    <button id="Ccerq_start"></button>
+                    <button id="Ccerq_start" class="button-85"></button>
                 </div>
                 <div>
                     <h2>D#</h2>
-                    <button id="Dcerq_start"></button>
+                    <button id="Dcerq_start" class="button-85"></button>
                 </div>
                 <div>
                     <h2>F#</h2>
-                    <button id="Fcerq_start"></button>
+                    <button id="Fcerq_start" class="button-85"></button>
                 </div>
-                 <div>
+                <div>
                     <h2>G#</h2>
-                    <button id="Gcerq_start"></button>
+                    <button id="Gcerq_start" class="button-85"></button>
                 </div>
-                
+
             </div>
-            <br/>
+            <br />
+
             <div>
                 <div id="log"></div>
             </div>
+        <br/>
+           <div class="start-button-row">
+                <div class="bubble-text">
+                    <p>Ainn to com preguiça de mapear dnv amanhã esses comandos e eu não vou conseguir a flauta hoje,
+                        vou precisar ficar 3 anos treinando esse troço</p>
+                    <p>clica no botão ai de copiar e usa a URL pra abrir o site</p>
+                    <br/>
+                    <button id="copyButton" class="button-85">Copiar URL com meus comandinhos</button>
+                </div>
+            </div>
+           <div class="divider div-transparent div-dot"></div>
             <div class="start-button-row">
                 <div class="bubble-text flute-score-element">
                     <h2>
-                        <span class="notes-correct-icon notes-score"><i class="fas fa-check"></i></span>
+                        <span class="c notes-score"><i class="fas fa-check"></i></span>
                         <span id="notes-correct">0</span>
                         <span class="notes-incorrect-icon notes-score"><i class="fas fa-times"></i></span>
                         <span id="notes-incorrect">0</span>
@@ -127,8 +146,9 @@
                         <span id="notes-skip">0</span>
                     </h2>
                 </div>
-                <button id="play-button">Bora flautear!</button>
+                <button id="play-button" class="button-85">Bora flautear!</button>
             </div>
+            <br/>
             <div class="flex-container">
                 <div class="image-container">
                     <img src="images/flute.png" alt="Flateado da Lugia aiiii que delicia" width="100%">
