@@ -219,7 +219,8 @@ function updateImageText() {
             }, 400));
         })
         .catch((e) => {
-          console.log(e.message), skips++, updateScores();
+          // console.log(e.message), 
+          skips++, updateScores();
         })
         .finally(() => {
           if (skips > 8 || misses > 6)
@@ -245,7 +246,7 @@ function updateImageText() {
       index++,
       (recursiveTimeout = setTimeout(updateImageText, e));
   } else {
-    console.log("SUCCESS!"), (success = !0);
+    // console.log("SUCCESS!"), (success = !0);
     let e = document.querySelector(".flute-results");
     (e.innerHTML =
       "pt-br" == currentLanguage || "pt_br" == currentLanguage
@@ -352,7 +353,7 @@ const urlParams = new URLSearchParams(queryString);
         "G#": GcerqParamKey,
     };
 
-    console.log('Teclas padrão carregadas:', teclasPadrao);
+    // console.log('Teclas padrão carregadas:', teclasPadrao);
       const idBotoes = ['A_start', 'B_start', 'C_start', 'D_start', 'E_start', 'F_start', 'G_start', 'Acerq_start', 'Ccerq_start', 'Dcerq_start', 'Fcerq_start', 'Gcerq_start'];
    for(let i=0; i<idBotoes.length; i++){
         const nota = idBotoes[i].replace('_start','').replace('cerq','#');
@@ -531,7 +532,7 @@ const urlParams = new URLSearchParams(queryString);
       teclas.add(event.key);
 
       const codigo = gerarCodigo(teclas);
-        console.log("Tecla pressionada:", codigo);
-        console.log("Tecla esperada:", codigoEsperado);
+        // console.log("Tecla pressionada:", codigo);
+        // console.log("Tecla esperada:", codigoEsperado);
       return codigo === codigoEsperado;
     }
