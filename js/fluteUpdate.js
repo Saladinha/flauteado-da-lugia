@@ -14,7 +14,7 @@ let changeBgColor = backgroundColorToggle.checked,
 backgroundColorToggle.addEventListener("change", function () {
   (changeBgColor = this.checked),
     changeBgColor ||
-      (document.body.style.backgroundColor = originalBackgroundColor);
+    (document.body.style.backgroundColor = originalBackgroundColor);
 }),
   missSoundsToggle.addEventListener("change", function () {
     playSounds = this.checked;
@@ -53,16 +53,16 @@ let recursiveTimeout,
   ];
 
 function playMissSound() {
-    missSound.pause(),
+  missSound.pause(),
     (missSound.currentTime = 0),
     missSound.play();
 }
 function generateNotes() {
   for (
     var e = ["A", "B", "C", "D", "E", "F", "G", "A#", "C#", "D#", "F#", "G#"],
-      t = [1, 1, 1, 1, 1, 1, 1, 0.1, 0.1, 0.1, 0.1, 0.1],
-      o = ["3", "2", "1"],
-      s = 0;
+    t = [1, 1, 1, 1, 1, 1, 1, 0.1, 0.1, 0.1, 0.1, 0.1],
+    o = ["3", "2", "1"],
+    s = 0;
     s < 50;
     s++
   ) {
@@ -121,7 +121,7 @@ function updateScores() {
     (notesSkipElement.textContent = skips.toString());
 }
 function updateImageText() {
-  if (( 100 == index || skips > 8 || misses > 6)) {
+  if ((100 == index || skips > 8 || misses > 6)) {
     document.querySelector("#audio-element").pause();
     let e = document.querySelector(".flute-results");
     return (
@@ -130,7 +130,7 @@ function updateImageText() {
           ? `Falha!<br>Skips: ${skips}<br>Erros: ${misses}`
           : `Fail!<br>Skips: ${skips}<br>Misses: ${misses}`),
       (e.style.display = "block"),
-      changeBgColor && (document.body.style.backgroundColor = "#F67280"),
+      changeBgColor && (document.body.style.backgroundColor = "#3b1f22ff"),
       (imageText.style.top = "-200%"),
       (imageText.style.left = "-200%"),
       (imageText.innerHTML = ""),
@@ -138,8 +138,7 @@ function updateImageText() {
       (playButton.textContent = "Bora dnv burrão"),
       (playButton.style.display = "inline-block"),
       void (playButton.onclick = function () {
-            const restart = '?A=' + teclasPadrao['A'] + '&B=' + teclasPadrao['B'] + '&C=' + teclasPadrao['C'] + '&D=' + teclasPadrao['D'] + '&E=' + teclasPadrao['E'] + '&F=' + teclasPadrao['F'] + '&G=' + teclasPadrao['G'] + '&Acerq=' + teclasPadrao['A#'] + '&Ccerq=' + teclasPadrao['C#'] + '&Dcerq=' + teclasPadrao['D#'] + '&Fcerq=' + teclasPadrao['F#'] + '&Gcerq=' + teclasPadrao['G#'];
-        window.location.href = restart;
+        window.location.href = urlPath;
 
       })
     );
@@ -159,45 +158,18 @@ function updateImageText() {
         (keyPressed = !1),
         (expectedKeys = teclasPadrao[window.notes[index]]);
       new Promise((t, o) => {
-       
-             
-        // const s = (e) => {
-        //   (keyPressed = !0),
-        //     expectedKeys.includes("#")
-        //       ? e.shiftKey && expectedKeys.includes(e.key)
-        //         ? (changeBgColor &&
-        //             (document.body.style.backgroundColor = "#80CEE1"),
-        //           correct++,
-        //           updateScores())
-        //         : (playSounds && playMissSound(),
-        //           changeBgColor &&
-        //             (document.body.style.backgroundColor = "#F67280"),
-        //           misses++,
-        //           updateScores())
-        //       : !e.shiftKey && expectedKeys.includes(e.key)
-        //       ? (changeBgColor &&
-        //           (document.body.style.backgroundColor = "#80CEE1"),
-        //         correct++,
-        //         updateScores())
-        //       : (playSounds && playMissSound(),
-        //         changeBgColor &&
-        //           (document.body.style.backgroundColor = "#F67280"),
-        //         misses++,
-        //         updateScores()),
-        //     document.removeEventListener("keypress", s),
-        //     t();
-        // };
 
-         const s = (e) => {
+
+        const s = (e) => {
           (keyPressed = !0),
-          validarTecla(e,teclasPadrao[window.notes[index-1]])
+            validarTecla(e, teclasPadrao[window.notes[index - 1]])
               ? (changeBgColor &&
-                  (document.body.style.backgroundColor = "#80CEE1"),
+                (document.body.style.backgroundColor = "#13382cff"),
                 correct++,
                 updateScores())
               : (playSounds && playMissSound(),
                 changeBgColor &&
-                  (document.body.style.backgroundColor = "#F67280"),
+                (document.body.style.backgroundColor = "#3b1f22ff"),
                 misses++,
                 updateScores()),
             document.removeEventListener("keypress", s),
@@ -210,13 +182,13 @@ function updateImageText() {
           }, Math.min(800, e)));
       })
         .then(() => {
-         // console.log("Key pressed"),
-            (timeoutID = setTimeout(() => {
-              index < window.notes.length &&
-                skips <= 8 &&
-                misses <= 6 &&
-                (document.body.style.backgroundColor = originalBackgroundColor);
-            }, 400));
+          // console.log("Key pressed"),
+          (timeoutID = setTimeout(() => {
+            index < window.notes.length &&
+              skips <= 8 &&
+              misses <= 6 &&
+              (document.body.style.backgroundColor = originalBackgroundColor);
+          }, 400));
         })
         .catch((e) => {
           // console.log(e.message), 
@@ -242,8 +214,8 @@ function updateImageText() {
         imageText.offsetWidth,
         imageText.classList.add("image-text"),
         (imageText.innerHTML = window.notes[index]);
-   // console.log("OK!", skips, misses),
-      index++,
+    // console.log("OK!", skips, misses),
+    index++,
       (recursiveTimeout = setTimeout(updateImageText, e));
   } else {
     // console.log("SUCCESS!"), (success = !0);
@@ -253,7 +225,7 @@ function updateImageText() {
         ? `Sucesso!<br>Skips: ${skips}<br>Erros: ${misses}`
         : `Success!<br>Skips: ${skips}<br>Misses: ${misses}`),
       (e.style.display = "block"),
-      changeBgColor && (document.body.style.backgroundColor = "#77DD77"),
+      changeBgColor && (document.body.style.backgroundColor = "#13382cff"),
       (image.src = successImageUrl),
       image.classList.add("blur"),
       (imageText.style.top = "-200%"),
@@ -262,8 +234,7 @@ function updateImageText() {
       (playButton.textContent = "Bora dnv"),
       (playButton.style.display = "inline-block"),
       (playButton.onclick = function () {
-         const restart = '?A=' + teclasPadrao['A'] + '&B=' + teclasPadrao['B'] + '&C=' + teclasPadrao['C'] + '&D=' + teclasPadrao['D'] + '&E=' + teclasPadrao['E'] + '&F=' + teclasPadrao['F'] + '&G=' + teclasPadrao['G'] + '&Acerq=' + teclasPadrao['A#'] + '&Ccerq=' + teclasPadrao['C#'] + '&Dcerq=' + teclasPadrao['D#'] + '&Fcerq=' + teclasPadrao['F#'] + '&Gcerq=' + teclasPadrao['G#'];
-        window.location.href = restart;
+        window.location.href = urlPath;
 
       });
   }
@@ -281,9 +252,9 @@ document.addEventListener("DOMContentLoaded", () => {
     playButton.addEventListener("click", () => {
       t &&
         (e.play(),
-        (window.notes = generateNotes()),
-        (playButton.style.display = "none"),
-        updateImageText());
+          (window.notes = generateNotes()),
+          (playButton.style.display = "none"),
+          updateImageText());
     }),
     (playButton.textContent = "Loading..."),
     (playButton.style.backgroundColor = "gray"),
@@ -292,265 +263,260 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 function toggleFullScreen() {
-  if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
-   (!document.mozFullScreen && !document.webkitIsFullScreen)) {
-    if (document.documentElement.requestFullScreen) {  
-      document.documentElement.requestFullScreen();  
-    } else if (document.documentElement.mozRequestFullScreen) {  
-      document.documentElement.mozRequestFullScreen();  
-    } else if (document.documentElement.webkitRequestFullScreen) {  
-      document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
-    }  
-  } else {  
-    if (document.cancelFullScreen) {  
-      document.cancelFullScreen();  
-    } else if (document.mozCancelFullScreen) {  
-      document.mozCancelFullScreen();  
-    } else if (document.webkitCancelFullScreen) {  
-      document.webkitCancelFullScreen();  
-    }  
-  }  
+  if ((document.fullScreenElement && document.fullScreenElement !== null) ||
+    (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+    if (document.documentElement.requestFullScreen) {
+      document.documentElement.requestFullScreen();
+    } else if (document.documentElement.mozRequestFullScreen) {
+      document.documentElement.mozRequestFullScreen();
+    } else if (document.documentElement.webkitRequestFullScreen) {
+      document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+    }
+  } else {
+    if (document.cancelFullScreen) {
+      document.cancelFullScreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitCancelFullScreen) {
+      document.webkitCancelFullScreen();
+    }
+  }
 }
 
 
 
-   const logDiv = document.getElementById('log');
-    const comandos = [];
-    let teclasAtivas = new Set();
-    let capturando = false;
-    let teclaSendoCapturada = null;
+const logDiv = document.getElementById('log');
+const comandos = [];
+let teclasAtivas = new Set();
+let capturando = false;
+let teclaSendoCapturada = null;
 
 
-    const queryString = window.location.search;
+const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 
-    const AParamKey = urlParams.get('A') || "1";
-    const BParamKey = urlParams.get('B') || "2";
-    const CParamKey = urlParams.get('C') || "3";
-    const DParamKey = urlParams.get('D') || "4";
-    const EParamKey = urlParams.get('E') || "5";
-    const FParamKey = urlParams.get('F') || "6";
-    const GParamKey = urlParams.get('G') || "7";
-    const AcerqParamKey = urlParams.get('Acerq') || "8";
-    const CcerqParamKey = urlParams.get('Ccerq') || "9";
-    const DcerqParamKey = urlParams.get('Dcerq') || "0";
-    const FcerqParamKey = urlParams.get('Fcerq') || "-";
-    const GcerqParamKey = urlParams.get('Gcerq') || "+";
+const AParamKey = urlParams.get('A') || "1";
+const BParamKey = urlParams.get('B') || "2";
+const CParamKey = urlParams.get('C') || "3";
+const DParamKey = urlParams.get('D') || "4";
+const EParamKey = urlParams.get('E') || "5";
+const FParamKey = urlParams.get('F') || "6";
+const GParamKey = urlParams.get('G') || "7";
+const AcerqParamKey = urlParams.get('Acerq') || "8";
+const CcerqParamKey = urlParams.get('Ccerq') || "9";
+const DcerqParamKey = urlParams.get('Dcerq') || "0";
+const FcerqParamKey = urlParams.get('Fcerq') || "-";
+const GcerqParamKey = urlParams.get('Gcerq') || "+";
 
 
-       let teclasPadrao = {
-        A: AParamKey,
-        B: BParamKey,
-        C: CParamKey,
-        D: DParamKey,
-        E: EParamKey,
-        F: FParamKey,
-        G: GParamKey,
-        "A#": AcerqParamKey,
-        "C#": CcerqParamKey,
-        "D#": DcerqParamKey,
-        "F#": FcerqParamKey,
-        "G#": GcerqParamKey,
-    };
+let teclasPadrao = {
+  A: AParamKey,
+  B: BParamKey,
+  C: CParamKey,
+  D: DParamKey,
+  E: EParamKey,
+  F: FParamKey,
+  G: GParamKey,
+  "A#": AcerqParamKey,
+  "C#": CcerqParamKey,
+  "D#": DcerqParamKey,
+  "F#": FcerqParamKey,
+  "G#": GcerqParamKey,
+};
 
-    // console.log('Teclas padrão carregadas:', teclasPadrao);
-      const idBotoes = ['A_start', 'B_start', 'C_start', 'D_start', 'E_start', 'F_start', 'G_start', 'Acerq_start', 'Ccerq_start', 'Dcerq_start', 'Fcerq_start', 'Gcerq_start'];
-   for(let i=0; i<idBotoes.length; i++){
-        const nota = idBotoes[i].replace('_start','').replace('cerq','#');
-        document.getElementById(idBotoes[i]).textContent = `${gerarComandoAPartirDoCodigo(teclasPadrao[nota])}`;
-    }
- 
-
-    function gerarComando(teclas) {
-      const modificadores = ["Control", "Alt", "Shift", "Meta"];
-      const ordenadas = [...teclas].sort((a, b) => {
-        const ia = modificadores.indexOf(a);
-        const ib = modificadores.indexOf(b);
-        if (ia === -1 && ib === -1) return a.localeCompare(b);
-        if (ia === -1) return 1;
-        if (ib === -1) return -1;
-        return ia - ib;
-      });
-      return ordenadas.join(" + ");
-    }
-
-    function gerarCodigo(teclas) {
-      return [...teclas]
-        .map(t => t.toUpperCase().replace(" ", "|_|").replace("#", "cerq").replace("^", "circumflexo"))
-        .join("|_|");
-    }
-
-    function gerarComandoAPartirDoCodigo(codigo) {
-      console.log("Gerando comando a partir do código:", codigo);
-        if(codigo == null || codigo == "") return "";
-
-        if(codigo.includes("cerq")){
-            codigo = codigo.replace("cerq", "#");
-        }
-        if(codigo.includes("circumflexo")){
-            codigo = codigo.replace("circumflexo","^");
-        }
-
-        return codigo.split("|_|").join(" + ");
-    }
-   
-    function desabilitarOsOutrosBotoesDeHotkey(idBotao){
-        if(idBotao == null || idBotao == ""){
-            for(let i=0; i<idBotoes.length; i++){
-                  document.getElementById(idBotoes[i]).disabled = false;
-                     document.getElementById(idBotoes[i]).classList.remove('button-85-disabled');
-            document.getElementById(idBotoes[i]).classList.add('button-85');
-            }
-            return;
-        }
-        for(let i=0; i<idBotoes.length; i++){
-            if(idBotoes[i] != idBotao){
-            document.getElementById(idBotoes[i]).disabled = true;
-            document.getElementById(idBotoes[i]).classList.add('button-85-disabled');
-            document.getElementById(idBotoes[i]).classList.remove('button-85');
-            } else {
-                document.getElementById(idBotoes[i]).disabled = false;
-                 document.getElementById(idBotoes[i]).classList.remove('button-85-disabled');
-            document.getElementById(idBotoes[i]).classList.add('button-85');
-            }
-        }
-    }
-    document.getElementById('A_start').addEventListener('click', () => {
-      desabilitarOsOutrosBotoesDeHotkey('A_start');
-      logDiv.innerText = "bota a tecla ou combinação pra A ae...\n";
-      teclasAtivas.clear();
-      capturando = true;
-      teclaSendoCapturada = 'A_start';
-    });
-    document.getElementById('B_start').addEventListener('click', () => {
-      desabilitarOsOutrosBotoesDeHotkey('B_start');
-      logDiv.innerText = "bota a tecla ou combinação pra B ae...\n";
-      teclasAtivas.clear();
-      capturando = true;
-        teclaSendoCapturada = 'B_start';
-    });
-    document.getElementById('C_start').addEventListener('click', () => {
-      desabilitarOsOutrosBotoesDeHotkey('C_start');
-      logDiv.innerText = "bota a tecla ou combinação pra C ae...\n";
-      teclasAtivas.clear();
-      capturando = true;
-        teclaSendoCapturada = 'C_start';
-    });
-    document.getElementById('D_start').addEventListener('click', () => {
-      desabilitarOsOutrosBotoesDeHotkey('D_start');
-      logDiv.innerText = "bota a tecla ou combinação pra D ae...\n";
-      teclasAtivas.clear();
-      capturando = true;
-        teclaSendoCapturada = 'D_start';
-    });
-    document.getElementById('E_start').addEventListener('click', () => {
-        desabilitarOsOutrosBotoesDeHotkey('E_start');
-        logDiv.innerText = "bota a tecla ou combinação pra E ae...\n";
-        teclasAtivas.clear();
-        capturando = true;
-        teclaSendoCapturada = 'E_start';
-      });
-    document.getElementById('F_start').addEventListener('click', () => {
-        desabilitarOsOutrosBotoesDeHotkey('F_start');
-        logDiv.innerText = "bota a tecla ou combinação pra F ae...\n";
-        teclasAtivas.clear();
-        capturando = true;
-        teclaSendoCapturada = 'F_start';
-      });
-    document.getElementById('G_start').addEventListener('click', () => {
-        desabilitarOsOutrosBotoesDeHotkey('G_start');
-        logDiv.innerText = "bota a tecla ou combinação pra G ae...\n";
-        teclasAtivas.clear();
-        capturando = true;
-        teclaSendoCapturada = 'G_start';
-      });
-    document.getElementById('Acerq_start').addEventListener('click', () => {
-        desabilitarOsOutrosBotoesDeHotkey('Acerq_start');
-        logDiv.innerText = "bota a tecla ou combinação pra A# ae...\n";
-        teclasAtivas.clear();
-        capturando = true;
-        teclaSendoCapturada = 'Acerq_start';
-      });
-    document.getElementById('Ccerq_start').addEventListener('click', () => {
-        desabilitarOsOutrosBotoesDeHotkey('Ccerq_start');
-        logDiv.innerText = "bota a tecla ou combinação pra C# ae...\n";
-        teclasAtivas.clear();
-        capturando = true;
-        teclaSendoCapturada = 'Ccerq_start';
-      });  
-    document.getElementById('Dcerq_start').addEventListener('click', () => {
-        desabilitarOsOutrosBotoesDeHotkey('Dcerq_start');
-        logDiv.innerText = "bota a tecla ou combinação pra D# ae...\n";
-        teclasAtivas.clear();
-        capturando = true;
-        teclaSendoCapturada = 'Dcerq_start';
-      });
-    document.getElementById('Fcerq_start').addEventListener('click', () => {
-        desabilitarOsOutrosBotoesDeHotkey('Fcerq_start');
-        logDiv.innerText = "bota a tecla ou combinação pra F# ae...\n";
-        teclasAtivas.clear();
-        capturando = true;
-        teclaSendoCapturada = 'Fcerq_start';
-      } );
-    document.getElementById('Gcerq_start').addEventListener('click', () => {
-        desabilitarOsOutrosBotoesDeHotkey('Gcerq_start');
-        logDiv.innerText = "bota a tecla ou combinação pra G# ae...\n";
-        teclasAtivas.clear();
-        capturando = true;
-        teclaSendoCapturada = 'Gcerq_start';
-      } );
-
-
-    document.addEventListener('keydown', (event) => {
-      if (!capturando) return;
-      teclasAtivas.add(event.key);
-    });
-
-    document.addEventListener('keyup', (event) => {
-      if (!capturando || !teclaSendoCapturada ) return;
-
-      if(teclasAtivas.has("Dead")){
-        teclasAtivas.delete("Dead");
-        teclasAtivas.add("^");
-      }
-      const comando = gerarComando(teclasAtivas);
-       const codigo = gerarCodigo(teclasAtivas);
-
-    
-     document.getElementById(teclaSendoCapturada).textContent = `${comando}`;
-     teclasPadrao[teclaSendoCapturada.replace('_start','').replace('cerq','#')] = codigo;
-     logDiv.innerText = "";
-
-      teclasAtivas.clear();
-      capturando = false; 
-      teclaSendoCapturada = null;
-      desabilitarOsOutrosBotoesDeHotkey("");
-    });
-
-    function validarTecla(event, codigoEsperado) {
-      const teclas = new Set();
-      if (event.ctrlKey) teclas.add("Control");
-      if (event.altKey) teclas.add("Alt");
-      if (event.shiftKey) teclas.add("Shift");
-      if (event.metaKey) teclas.add("Meta");
-      teclas.add(event.key);
-
-      const codigo = gerarCodigo(teclas);
-        // console.log("Tecla pressionada:", codigo);
-        // console.log("Tecla esperada:", codigoEsperado);
-      return codigo === codigoEsperado;
-    }
-
-function copiarUrlComAsHotkeysProClipboard(){
-  document.getElementById('copyButton').addEventListener('click', async () => {
-  const text = document.getElementById('textToCopy').innerText;
-  try {
-    await navigator.clipboard.writeText(text);
-    alert('Text copied to clipboard!');
-  } catch (err) {
-    console.error('Failed to copy text: ', err);
-    alert('Failed to copy text.');
-  }
-});
+// console.log('Teclas padrão carregadas:', teclasPadrao);
+const idBotoes = ['A_start', 'B_start', 'C_start', 'D_start', 'E_start', 'F_start', 'G_start', 'Acerq_start', 'Ccerq_start', 'Dcerq_start', 'Fcerq_start', 'Gcerq_start'];
+for (let i = 0; i < idBotoes.length; i++) {
+  const nota = idBotoes[i].replace('_start', '').replace('cerq', '#');
+  document.getElementById(idBotoes[i]).textContent = `${gerarComandoAPartirDoCodigo(teclasPadrao[nota])}`;
 }
-  
+
+
+function gerarComando(teclas) {
+  const modificadores = ["Control", "Alt", "Shift", "Meta"];
+  const ordenadas = [...teclas].sort((a, b) => {
+    const ia = modificadores.indexOf(a);
+    const ib = modificadores.indexOf(b);
+    if (ia === -1 && ib === -1) return a.localeCompare(b);
+    if (ia === -1) return 1;
+    if (ib === -1) return -1;
+    return ia - ib;
+  });
+  return ordenadas.join(" + ");
+}
+
+function gerarCodigo(teclas) {
+  return [...teclas]
+    .map(t => t.toUpperCase().replace(" ", "|_|").replace("#", "cerq").replace("^", "circumflexo"))
+    .join("|_|");
+}
+
+function gerarComandoAPartirDoCodigo(codigo) {
+  console.log("Gerando comando a partir do código:", codigo);
+  if (codigo == null || codigo == "") return "";
+
+  if (codigo.includes("cerq")) {
+    codigo = codigo.replace("cerq", "#");
+  }
+  if (codigo.includes("circumflexo")) {
+    codigo = codigo.replace("circumflexo", "^");
+  }
+
+  return codigo.split("|_|").join(" + ");
+}
+
+function desabilitarOsOutrosBotoesDeHotkey(idBotao) {
+  if (idBotao == null || idBotao == "") {
+    for (let i = 0; i < idBotoes.length; i++) {
+      document.getElementById(idBotoes[i]).disabled = false;
+      document.getElementById(idBotoes[i]).classList.add('button-rgb');
+    }
+    return;
+  }
+  for (let i = 0; i < idBotoes.length; i++) {
+    if (idBotoes[i] != idBotao) {
+      document.getElementById(idBotoes[i]).disabled = true;
+      document.getElementById(idBotoes[i]).classList.remove('button-rgb');
+    } else {
+      document.getElementById(idBotoes[i]).disabled = false;
+      document.getElementById(idBotoes[i]).classList.add('button-rgb');
+    }
+  }
+}
+document.getElementById('A_start').addEventListener('click', () => {
+  desabilitarOsOutrosBotoesDeHotkey('A_start');
+  logDiv.innerText = "bota a tecla ou combinação pra A ae...\n";
+  teclasAtivas.clear();
+  capturando = true;
+  teclaSendoCapturada = 'A_start';
+});
+document.getElementById('B_start').addEventListener('click', () => {
+  desabilitarOsOutrosBotoesDeHotkey('B_start');
+  logDiv.innerText = "bota a tecla ou combinação pra B ae...\n";
+  teclasAtivas.clear();
+  capturando = true;
+  teclaSendoCapturada = 'B_start';
+});
+document.getElementById('C_start').addEventListener('click', () => {
+  desabilitarOsOutrosBotoesDeHotkey('C_start');
+  logDiv.innerText = "bota a tecla ou combinação pra C ae...\n";
+  teclasAtivas.clear();
+  capturando = true;
+  teclaSendoCapturada = 'C_start';
+});
+document.getElementById('D_start').addEventListener('click', () => {
+  desabilitarOsOutrosBotoesDeHotkey('D_start');
+  logDiv.innerText = "bota a tecla ou combinação pra D ae...\n";
+  teclasAtivas.clear();
+  capturando = true;
+  teclaSendoCapturada = 'D_start';
+});
+document.getElementById('E_start').addEventListener('click', () => {
+  desabilitarOsOutrosBotoesDeHotkey('E_start');
+  logDiv.innerText = "bota a tecla ou combinação pra E ae...\n";
+  teclasAtivas.clear();
+  capturando = true;
+  teclaSendoCapturada = 'E_start';
+});
+document.getElementById('F_start').addEventListener('click', () => {
+  desabilitarOsOutrosBotoesDeHotkey('F_start');
+  logDiv.innerText = "bota a tecla ou combinação pra F ae...\n";
+  teclasAtivas.clear();
+  capturando = true;
+  teclaSendoCapturada = 'F_start';
+});
+document.getElementById('G_start').addEventListener('click', () => {
+  desabilitarOsOutrosBotoesDeHotkey('G_start');
+  logDiv.innerText = "bota a tecla ou combinação pra G ae...\n";
+  teclasAtivas.clear();
+  capturando = true;
+  teclaSendoCapturada = 'G_start';
+});
+document.getElementById('Acerq_start').addEventListener('click', () => {
+  desabilitarOsOutrosBotoesDeHotkey('Acerq_start');
+  logDiv.innerText = "bota a tecla ou combinação pra A# ae...\n";
+  teclasAtivas.clear();
+  capturando = true;
+  teclaSendoCapturada = 'Acerq_start';
+});
+document.getElementById('Ccerq_start').addEventListener('click', () => {
+  desabilitarOsOutrosBotoesDeHotkey('Ccerq_start');
+  logDiv.innerText = "bota a tecla ou combinação pra C# ae...\n";
+  teclasAtivas.clear();
+  capturando = true;
+  teclaSendoCapturada = 'Ccerq_start';
+});
+document.getElementById('Dcerq_start').addEventListener('click', () => {
+  desabilitarOsOutrosBotoesDeHotkey('Dcerq_start');
+  logDiv.innerText = "bota a tecla ou combinação pra D# ae...\n";
+  teclasAtivas.clear();
+  capturando = true;
+  teclaSendoCapturada = 'Dcerq_start';
+});
+document.getElementById('Fcerq_start').addEventListener('click', () => {
+  desabilitarOsOutrosBotoesDeHotkey('Fcerq_start');
+  logDiv.innerText = "bota a tecla ou combinação pra F# ae...\n";
+  teclasAtivas.clear();
+  capturando = true;
+  teclaSendoCapturada = 'Fcerq_start';
+});
+document.getElementById('Gcerq_start').addEventListener('click', () => {
+  desabilitarOsOutrosBotoesDeHotkey('Gcerq_start');
+  logDiv.innerText = "bota a tecla ou combinação pra G# ae...\n";
+  teclasAtivas.clear();
+  capturando = true;
+  teclaSendoCapturada = 'Gcerq_start';
+});
+
+
+document.addEventListener('keydown', (event) => {
+  if (!capturando) return;
+  teclasAtivas.add(event.key);
+});
+
+document.addEventListener('keyup', (event) => {
+  if (!capturando || !teclaSendoCapturada) return;
+
+  if (teclasAtivas.has("Dead")) {
+    teclasAtivas.delete("Dead");
+    teclasAtivas.add("^");
+  }
+  const comando = gerarComando(teclasAtivas);
+  const codigo = gerarCodigo(teclasAtivas);
+
+
+  document.getElementById(teclaSendoCapturada).textContent = `${comando}`;
+  teclasPadrao[teclaSendoCapturada.replace('_start', '').replace('cerq', '#')] = codigo;
+  logDiv.innerText = "";
+
+  teclasAtivas.clear();
+  capturando = false;
+  teclaSendoCapturada = null;
+  desabilitarOsOutrosBotoesDeHotkey("");
+  urlPath = '?A=' + teclasPadrao['A'] + '&B=' + teclasPadrao['B'] + '&C=' + teclasPadrao['C'] + '&D=' + teclasPadrao['D'] + '&E=' + teclasPadrao['E'] + '&F=' + teclasPadrao['F'] + '&G=' + teclasPadrao['G'] + '&Acerq=' + teclasPadrao['A#'] + '&Ccerq=' + teclasPadrao['C#'] + '&Dcerq=' + teclasPadrao['D#'] + '&Fcerq=' + teclasPadrao['F#'] + '&Gcerq=' + teclasPadrao['G#'];
+});
+
+function validarTecla(event, codigoEsperado) {
+  const teclas = new Set();
+  if (event.ctrlKey) teclas.add("Control");
+  if (event.altKey) teclas.add("Alt");
+  if (event.shiftKey) teclas.add("Shift");
+  if (event.metaKey) teclas.add("Meta");
+  teclas.add(event.key);
+
+  const codigo = gerarCodigo(teclas);
+  // console.log("Tecla pressionada:", codigo);
+  // console.log("Tecla esperada:", codigoEsperado);
+  return codigo === codigoEsperado;
+}
+
+let urlPath = '?A=' + teclasPadrao['A'] + '&B=' + teclasPadrao['B'] + '&C=' + teclasPadrao['C'] + '&D=' + teclasPadrao['D'] + '&E=' + teclasPadrao['E'] + '&F=' + teclasPadrao['F'] + '&G=' + teclasPadrao['G'] + '&Acerq=' + teclasPadrao['A#'] + '&Ccerq=' + teclasPadrao['C#'] + '&Dcerq=' + teclasPadrao['D#'] + '&Fcerq=' + teclasPadrao['F#'] + '&Gcerq=' + teclasPadrao['G#'];
+function copiarUrlComAsHotkeysProClipboard() {
+
+  try {
+    navigator.clipboard.writeText(window.location.origin + urlPath);
+    alert('URL com as hotkeys tão no seu seu CNTRL + V meu chapa');
+  } catch (err) {
+    alert('Deu pau pra colocar a URL no seu CNTRL + V, se vira');
+  }
+}
