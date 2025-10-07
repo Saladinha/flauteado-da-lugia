@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Lugia Flute</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css"
+        integrity="sha512-P9vJUXK+LyvAzj8otTOKzdfF1F3UYVl13+F8Fof8/2QNb8Twd6Vb+VD52I7+87tex9UXxnzPgWA3rH96RExA7A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css"
+        integrity="sha512-sVSECYdnRMezwuq5uAjKQJEcu2wybeAPjU4VJQ9pCRcCY4pIpIw4YMHIOQ0CypfwHRvdSPbH++dA3O4Hihm/LQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css"
+        integrity="sha512-tk4nGrLxft4l30r9ETuejLU0a3d7LwMzj0eXjzc16JQj+5U1IeVoCuGLObRDc3+eQMUcEQY1RIDPGvuA7SNQ2w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+
+<body>
+    <header class="main-header-container">
+        <img class="main-logo-text" src="images/flauteado.jpg" alt="Logo">
+    </header>
+    <div class="main-content main-content-list container">
+        <div class="text-wrapper">
+            <div class="bubble-text">
+                <h2>Thiago gosta de flautear o grosso</h2>
+            </div>
+            <div class="bubble-text">
+                <h4>Instrução pra burro: aperta f11 pra por em tela cheia.</h4>
+            </div>
+            <div class="bubble-text">
+                <h4>Resolvi botar um botão pq sei q vcs n sabem nem onde fica o f11</h4>
+                <div class="start-button-row">
+                    <div class="bubble-text flute-score-element">
+                        <button type="button" onclick="toggleFullScreen()">Ligar/Desligar Fullscreen
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lugia-text">
+                <h2>Piscar o fundo qnd acerta e erra</h2>
+                <div class="toggle-switch">
+                    <input type="checkbox" id="background-color-toggle" checked />
+                    <label for="background-color-toggle" class="toggle-switch-label"></label>
+                </div>
+                <h2>Tocar o som qnd fizer merda</h2>
+                <div class="toggle-switch">
+                    <input type="checkbox" id="miss-sounds-toggle" checked />
+                    <label for="miss-sounds-toggle" class="toggle-switch-label"></label>
+                </div>
+
+            </div>
+                <div class="bubble-text">
+                <h4>Clica nos botões abaixo e bota o coomando que quer pode ser cntrl + alguma coisa ou shift + sei la o que,
+                     só n pode ser os F1-F12 pq tem função no navegador aí vai ficar todo torto</h4>
+            </div>
+            <div class="hotkey-button-row"> 
+                <div>
+                    <h2>A</h2>
+                    <button id="A_start"></button>
+                </div>
+                <div>
+                    <h2>B</h2>
+                    <button id="B_start"></button>
+                </div>
+                <div>
+                    <h2>C</h2>
+                    <button id="C_start"></button>
+                </div>
+                <div>
+                    <h2>D</h2>
+                    <button id="D_start"></button>
+                </div>
+                <div>
+                    <h2>E</h2>
+                    <button id="E_start"></button>
+                </div>
+                <div>
+                    <h2>F</h2>
+                    <button id="F_start"></button>
+                </div>
+                <div>
+                    <h2>G</h2>
+                    <button id="G_start"></button>
+                </div>
+                <div>
+                    <h2>A#</h2>
+                    <button id="Acerq_start"></button>
+                </div>
+                <div>
+                    <h2>C#</h2>
+                    <button id="Ccerq_start"></button>
+                </div>
+                <div>
+                    <h2>D#</h2>
+                    <button id="Dcerq_start"></button>
+                </div>
+                <div>
+                    <h2>F#</h2>
+                    <button id="Fcerq_start"></button>
+                </div>
+                 <div>
+                    <h2>G#</h2>
+                    <button id="Gcerq_start"></button>
+                </div>
+                
+            </div>
+            <br/>
+            <div>
+                <div id="log"></div>
+            </div>
+            <div class="start-button-row">
+                <div class="bubble-text flute-score-element">
+                    <h2>
+                        <span class="notes-correct-icon notes-score"><i class="fas fa-check"></i></span>
+                        <span id="notes-correct">0</span>
+                        <span class="notes-incorrect-icon notes-score"><i class="fas fa-times"></i></span>
+                        <span id="notes-incorrect">0</span>
+                        <span class="notes-skip-icon notes-score"><i class="fas fa-forward"></i></span>
+                        <span id="notes-skip">0</span>
+                    </h2>
+                </div>
+                <button id="play-button">Bora flautear!</button>
+            </div>
+            <div class="flex-container">
+                <div class="image-container">
+                    <img src="images/flute.png" alt="Lugia Flute" width="100%">
+                    <div class="image-text"></div>
+                    <div class="flute-results"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/fluteUpdate.js"></script>
+    <audio id="audio-element" src="music/lugias_song.mp3"></audio>
+</body>
+
+</html>
