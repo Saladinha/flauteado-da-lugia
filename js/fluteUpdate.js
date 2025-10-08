@@ -122,7 +122,7 @@ function updateScores() {
 }
 function updateImageText() {
   if ((100 == index || skips > 8 || misses > 6)) {
-    document.querySelector("#audio-element").pause();
+    document.querySelector("#lugiaMusic").pause();
     let e = document.querySelector(".flute-results");
     return (
       (e.innerHTML =
@@ -144,9 +144,9 @@ function updateImageText() {
     );
   }
 
-  console.log(window.notes);
+  // console.log(window.notes);
 
-   if (index < window.notes.length) {
+  if (index < window.notes.length) {
     let e = delay[index];
     if (index > 2) {
       let t = positions[Math.floor(Math.random() * positions.length)];
@@ -245,7 +245,7 @@ function updateImageText() {
 }
 document.addEventListener("DOMContentLoaded", () => {
   playButton = document.querySelector("#play-button");
-  const e = document.querySelector("#audio-element");
+  const e = document.querySelector("#lugiaMusic");
   let t = !1;
   e.addEventListener("canplaythrough", () => {
     (t = !0),
@@ -299,19 +299,20 @@ let teclaSendoCapturada = null;
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 
-const AParamKey = urlParams.get('A') || "1";
-const BParamKey = urlParams.get('B') || "2";
-const CParamKey = urlParams.get('C') || "3";
-const DParamKey = urlParams.get('D') || "4";
-const EParamKey = urlParams.get('E') || "5";
-const FParamKey = urlParams.get('F') || "6";
-const GParamKey = urlParams.get('G') || "7";
-const AcerqParamKey = urlParams.get('Acerq') || "8";
-const CcerqParamKey = urlParams.get('Ccerq') || "9";
-const DcerqParamKey = urlParams.get('Dcerq') || "0";
-const FcerqParamKey = urlParams.get('Fcerq') || "-";
-const GcerqParamKey = urlParams.get('Gcerq') || "+";
+let storedTeclas = localStorage.getItem('mapeamentoDeTeclas') ? JSON.parse(localStorage.getItem('mapeamentoDeTeclas')) : null;
 
+const AParamKey = urlParams.get('A') || storedTeclas?.A || "1";
+const BParamKey = urlParams.get('B') || storedTeclas?.B || "2";
+const CParamKey = urlParams.get('C') || storedTeclas?.C || "3";
+const DParamKey = urlParams.get('D') || storedTeclas?.D || "4";
+const EParamKey = urlParams.get('E') || storedTeclas?.E || "5";
+const FParamKey = urlParams.get('F') || storedTeclas?.F || "6";
+const GParamKey = urlParams.get('G') || storedTeclas?.G || "7";
+const AcerqParamKey = urlParams.get('Acerq') || storedTeclas?.['A#'] || "8";
+const CcerqParamKey = urlParams.get('Ccerq') || storedTeclas?.['C#'] || "9";
+const DcerqParamKey = urlParams.get('Dcerq') || storedTeclas?.['D#'] || "0";
+const FcerqParamKey = urlParams.get('Fcerq') || storedTeclas?.['F#'] || "-";
+const GcerqParamKey = urlParams.get('Gcerq') || storedTeclas?.['G#'] || "+";
 
 let teclasPadrao = {
   A: AParamKey,
@@ -356,7 +357,7 @@ function gerarCodigo(teclas) {
 }
 
 function gerarComandoAPartirDoCodigo(codigo) {
-  console.log("Gerando comando a partir do código:", codigo);
+  // console.log("Gerando comando a partir do código:", codigo);
   if (codigo == null || codigo == "") return "";
 
   if (codigo.includes("cerq")) {
@@ -491,6 +492,9 @@ document.addEventListener('keyup', (event) => {
 
   document.getElementById(teclaSendoCapturada).textContent = `${comando}`;
   teclasPadrao[teclaSendoCapturada.replace('_start', '').replace('cerq', '#')] = codigo;
+  localStorage.setItem('mapeamentoDeTeclas', JSON.stringify(teclasPadrao));
+
+
   logDiv.innerText = "";
 
   teclasAtivas.clear();
@@ -524,3 +528,82 @@ function copiarUrlComAsHotkeysProClipboard() {
     alert('Deu pau pra colocar a URL no seu CNTRL + V, se vira');
   }
 }
+
+
+changeHotkeyPattern = function (patternType) {
+  if (patternType === 1) {
+    teclasPadrao = {
+      A: "1",
+      B: "2",
+      C: "3",
+      D: "4",
+      E: "5",
+      F: "6",
+      G: "7",
+      "A#": "8",
+      "C#": "9",
+      "D#": "0",
+      "F#": "-",
+      "G#": "+",
+    };
+    document.getElementById("A_start").textContent = "1";
+    document.getElementById("B_start").textContent = "2";
+    document.getElementById("C_start").textContent = "3";
+    document.getElementById("D_start").textContent = "4";
+    document.getElementById("E_start").textContent = "5";
+    document.getElementById("F_start").textContent = "6";
+    document.getElementById("G_start").textContent = "7";
+    document.getElementById("Acerq_start").textContent = "8";
+    document.getElementById("Ccerq_start").textContent = "9";
+    document.getElementById("Dcerq_start").textContent = "0";
+    document.getElementById("Fcerq_start").textContent = "-";
+    document.getElementById("Gcerq_start").textContent = "+";
+
+  } else if (patternType === 2) {
+    teclasPadrao = {
+      A: "A",
+      B: "B",
+      C: "C",
+      D: "D",
+      E: "E",
+      F: "F",
+      G: "G",
+      "A#": "Shift|_|A",
+      "C#": "Shift|_|C",
+      "D#": "Shift|_|D",
+      "F#": "Shift|_|F",
+      "G#": "Shift|_|G",
+    };
+    document.getElementById("A_start").textContent = "A";
+    document.getElementById("B_start").textContent = "B";
+    document.getElementById("C_start").textContent = "C";
+    document.getElementById("D_start").textContent = "D";
+    document.getElementById("E_start").textContent = "E";
+    document.getElementById("F_start").textContent = "F";
+    document.getElementById("G_start").textContent = "G";
+    document.getElementById("Acerq_start").textContent = "Shift + A";
+    document.getElementById("Ccerq_start").textContent = "Shift + C";
+    document.getElementById("Dcerq_start").textContent = "Shift + D";
+    document.getElementById("Fcerq_start").textContent = "Shift + F";
+    document.getElementById("Gcerq_start").textContent = "Shift + G";
+  }
+
+  localStorage.setItem('mapeamentoDeTeclas', JSON.stringify(teclasPadrao));
+}
+
+const lugiaMusic = document.getElementById('lugiaMusic');
+const volumeControl = document.getElementById('volumeControl');
+let savedVolume = localStorage.getItem('savedVolume') ? JSON.parse(localStorage.getItem('savedVolume')) : null;
+if (savedVolume) {
+    missSound.volume = savedVolume.miss;
+    lugiaMusic.volume = savedVolume.music;
+    volumeControl.value = (savedVolume.music * 100).toFixed(0);
+}
+
+volumeControl.addEventListener('input', function() {
+    missSound.volume = ((this.value * 0.2) / 100).toFixed(4);
+    lugiaMusic.volume = (this.value / 100).toFixed(4);
+     let savedVolume ={ miss: missSound.volume, music: lugiaMusic.volume };
+        localStorage.setItem('savedVolume', JSON.stringify(savedVolume));
+});
+

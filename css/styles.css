@@ -682,6 +682,34 @@ img.blur {
     touch-action: manipulation;
 }
 
+.hotkey-options-button-row {
+   display: flex;
+    
+}
+.hotkey-options-button-row button {
+    margin: 0 10px;
+    font-family: var(--font-headings);
+    cursor: pointer;
+    text-align: center;
+    width: 40rem;
+    height: 6rem;
+    font-size: 1.4rem;  
+    font-weight: 700;
+
+
+        padding: 0.6em 2em;
+    border: none;
+    outline: none;
+    color: rgb(255, 255, 255);
+    background: #2c2b2b;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
 .flute-score-element,
 .timer-element {
     align-items: center;
@@ -920,4 +948,31 @@ img.blur {
 	border-radius: 50%;
 	box-shadow: inset 0 0 0 2px white,
 					0 0 0 4px white;
+}
+
+
+#volumeControl {
+    width: 200px; /* Adjust width as needed */
+    height: 8px;
+    -webkit-appearance: none; /* Remove default browser styling */
+    background: #ddd;
+    border-radius: 5px;
+    outline: none;
+}
+
+#volumeControl::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #007bff;
+    cursor: pointer;
+}
+
+.micro-text {
+    font-size: 1.5rem;
+    color: #bbb;
+    font-style: italic;
+    margin-top: -10px;
+    margin-bottom: 10px;
 }

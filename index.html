@@ -31,7 +31,7 @@
             <div class="bubble-text">
                 <h2>Ainn vou treinar pra flautear o grosso bem gostosinho</h2>
             </div>
-                     
+
             <div class="divider div-transparent div-dot"></div>
             <div class="bubble-text">
                 <h4>Instrução pra burro: aperta F11 pra por em tela cheia.</h4>
@@ -45,26 +45,39 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="divider div-transparent div-dot"></div>
-          
+
             <div class="lugia-text">
-                                <h2>Piscar o fundo qnd acerta e erra</h2>
-                                <div class="checkbox-wrapper-10">
-                                    <input class="tgl tgl-flip" id="background-color-toggle" type="checkbox" checked />
-                                    <label class="tgl-btn" data-tg-off="Nope" data-tg-on="Yeah!" for="background-color-toggle"></label>
-                                </div>
-                                <div class="vertical-divider"></div>
-                                <h2>Tocar o som qnd fizer merda</h2>
-                                <div class="checkbox-wrapper-10">
-                                    <input class="tgl tgl-flip" id="miss-sounds-toggle" type="checkbox" checked />
-                                    <label class="tgl-btn" data-tg-off="Nope" data-tg-on="Yeah!" for="miss-sounds-toggle"></label>
-                                </div>
+                <h2>Piscar o fundo qnd acerta e erra</h2>
+                <div class="checkbox-wrapper-10">
+                    <input class="tgl tgl-flip" id="background-color-toggle" type="checkbox" checked />
+                    <label class="tgl-btn" data-tg-off="Nope" data-tg-on="Yeah!" for="background-color-toggle"></label>
+                </div>
+                <div class="vertical-divider"></div>
+                <h2>Tocar o som qnd fizer merda</h2>
+                <div class="checkbox-wrapper-10">
+                    <input class="tgl tgl-flip" id="miss-sounds-toggle" type="checkbox" checked />
+                    <label class="tgl-btn" data-tg-off="Nope" data-tg-on="Yeah!" for="miss-sounds-toggle"></label>
+                </div>
 
             </div>
             <div class="divider div-transparent div-dot"></div>
+            <div class="hotkey-options-button-row">
+                <div>
+                    <button id="copyUrlHotkeys" class="button-rgb" onclick="changeHotkeyPattern(1)">Utilizar padrão "1"
+                        até "+" (simula F1-F12)</button>
+                </div>
+                <div>
+                    <button id="copyUrlHotkeys" class="button-rgb" onclick="changeHotkeyPattern(2)">Utilizar padrão
+                        Letras e Shift + Letras para
+                        #</button>
+                </div>
+            </div>
+            <br />
             <div class="bubble-text">
-                <h4>Clica nos botões abaixo e bota o comando que quer pode ser cntrl + alguma coisa ou shift + sei la o
+                <h4>Ou clica nos botões abaixo e bota o comando que quer pode ser cntrl + alguma coisa ou shift + sei la
+                    o
                     que,
                     só n pode ser os F1-F12 pq tem função no navegador aí vai ficar todo torto</h4>
             </div>
@@ -124,17 +137,31 @@
             <div>
                 <div id="log"></div>
             </div>
-        <br/>
-           <div class="start-button-row">
+            <br />
+            <div class="start-button-row">
                 <div class="bubble-text">
-                    <p>Ainn to com preguiça de mapear dnv amanhã esses comandos e eu não vou conseguir a flauta hoje,
-                        vou precisar ficar 3 anos treinando esse troço</p>
-                    <p>clica no botão ai de copiar e usa a URL pra abrir o site</p>
-                    <br/>
-                    <button id="copyUrlHotkeys" class="button-rgb" onclick="copiarUrlComAsHotkeysProClipboard()">Copiar URL com meus comandinhos</button>
+                    <p class="micro-text">Ainn to com preguiça de mapear dnv amanhã esses comandos e eu não vou conseguir a flauta hoje,
+                        vou precisar ficar 3 anos treinando esse troço, to salvando o mapeamento no cache do seu navegador, 
+                        mas se precisar abrir em outro PC ou navegador, ou quiser salvar para enviar para um amiguinho 
+                        (sei q vc não tem, mas finge) só
+                        clicar no botão ai de copiar e usa a URL pra abrir o site</p>
+                    <br />
+                    <button id="copyUrlHotkeys" class="button-rgb" onclick="copiarUrlComAsHotkeysProClipboard()">Copiar
+                        URL com meus comandinhos</button>
                 </div>
             </div>
-           <div class="divider div-transparent div-dot"></div>
+            <div class="divider div-transparent div-dot"></div>
+
+            <audio id="lugiaMusic" src="music/lugias_song.mp3"></audio>
+            <div class="start-button-row">
+                <h4>Volume</h4>
+            </div>
+            <div><input type="range" id="volumeControl" min="0" max="100" value="100"></div>
+            <br />
+            <div>
+                <p class="micro-text">pq sei q vc é inútil e tá a 6 meses ouvindo isso repetidamente e não aguenta mais
+                </p>
+            </div>
             <div class="start-button-row">
                 <div class="bubble-text flute-score-element">
                     <h2>
@@ -148,7 +175,7 @@
                 </div>
                 <button id="play-button" class="button-rgb">Bora flautear!</button>
             </div>
-            <br/>
+            <br />
             <div class="flex-container">
                 <div class="image-container">
                     <img src="images/flute.png" alt="Flateado da Lugia aiiii que delicia" width="100%">
@@ -159,7 +186,7 @@
         </div>
     </div>
     <script src="js/fluteUpdate.js"></script>
-    <audio id="audio-element" src="music/lugias_song.mp3"></audio>
+
 </body>
 
 </html>
