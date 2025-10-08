@@ -965,7 +965,7 @@ img.blur {
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background: #007bff;
+    background: rgb(255, 0, 212);
     cursor: pointer;
 }
 
