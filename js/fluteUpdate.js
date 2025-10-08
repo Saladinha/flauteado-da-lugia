@@ -143,7 +143,10 @@ function updateImageText() {
       })
     );
   }
-  if (index < window.notes.length) {
+
+  console.log(window.notes);
+
+   if (index < window.notes.length) {
     let e = delay[index];
     if (index > 2) {
       let t = positions[Math.floor(Math.random() * positions.length)];
@@ -218,7 +221,8 @@ function updateImageText() {
     index++,
       (recursiveTimeout = setTimeout(updateImageText, e));
   } else {
-    // console.log("SUCCESS!"), (success = !0);
+    // console.log("SUCCESS!"), 
+    (success = !0);
     let e = document.querySelector(".flute-results");
     (e.innerHTML =
       "pt-br" == currentLanguage || "pt_br" == currentLanguage
