@@ -74,9 +74,9 @@ if ("pt-br" == currentLanguage || "pt_br" == currentLanguage) {
 
 let history = localStorage.getItem('historicoResultados') ? JSON.parse(localStorage.getItem('historicoResultados')) : [];
 const historyListEl = document.getElementById("historyList");
-let histItem = document.createElement('li');
 document.getElementById('historyList').style.display = 'none';
 history.forEach(item => {
+  const histItem = document.createElement('li');
   histItem.textContent = `${item.result} - ${skipsTitle}: ${item.skips} - ${missesTitle}: ${item.misses} - ${item.date}`;
   historyListEl.appendChild(histItem);
 });
@@ -158,12 +158,10 @@ function updateImageText() {
     history.push(failItem);
     localStorage.setItem('historicoResultados', JSON.stringify(history));
 
+      const newHistItem = document.createElement('li');
+      newHistItem.textContent = `${failTitle} - ${skipsTitle}: ${skips} - ${missesTitle}: ${misses} - ${failItem.date}`;
+      historyListEl.appendChild(newHistItem);
     document.getElementById('noHistoryMessage').style.display = 'none';
-
-    history.forEach(item => {
-      histItem.textContent = `${item.result} - ${skipsTitle}: ${item.skips} - ${missesTitle}: ${item.misses} - ${item.date}`;
-      historyListEl.appendChild(histItem);
-    });
 
     return (
       (e.innerHTML =
@@ -268,12 +266,12 @@ function updateImageText() {
     let successItem = { result: successTitle, skips: skips, misses: misses, date: new Date().toLocaleString() };
     history.push(successItem);
     localStorage.setItem('historicoResultados', JSON.stringify(history));
-    history.forEach(item => {
-      histItem.textContent = `${item.result} - ${skipsTitle}: ${item.skips} - ${missesTitle}: ${item.misses} - ${item.date}`;
-      historyListEl.appendChild(histItem);
-    });
+    
+        const newHistItem = document.createElement('li');
+          newHistItem.textContent = `${successTitle} - ${skipsTitle}: ${skips} - ${missesTitle}: ${misses} - ${successItem.date}`;
+      historyListEl.appendChild(newHistItem);
     document.getElementById('noHistoryMessage').style.display = 'none';
-
+     
     (e.innerHTML =
       `${successTitle}!<br>${skipsTitle}: ${skips}<br>${missesTitle}: ${misses}`),
       (e.style.display = "block"),
