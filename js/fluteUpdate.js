@@ -52,6 +52,35 @@ let recursiveTimeout,
     1100,
   ];
 
+
+
+
+let successTitle;
+let failTitle;
+let missesTitle;
+let skipsTitle;
+if ("pt-br" == currentLanguage || "pt_br" == currentLanguage) {
+  successTitle = "Sucesso";
+  failTitle = "Falha";
+  missesTitle = "Erros";
+  skipsTitle = "Pulos";
+} else {
+  successTitle = "Success";
+  failTitle = "Fail";
+  missesTitle = "Misses";
+  skipsTitle = "Skips";
+}
+
+
+let history = localStorage.getItem('historicoResultados') ? JSON.parse(localStorage.getItem('historicoResultados')) : [];
+const historyListEl = document.getElementById("historyList");
+let histItem = document.createElement('li');
+document.getElementById('historyList').style.display = 'none';
+history.forEach(item => {
+  histItem.textContent = `${item.result} - ${skipsTitle}: ${item.skips} - ${missesTitle}: ${item.misses} - ${item.date}`;
+  historyListEl.appendChild(histItem);
+});
+
 function playMissSound() {
   missSound.pause(),
     (missSound.currentTime = 0),
@@ -124,11 +153,21 @@ function updateImageText() {
   if ((100 == index || skips > 8 || misses > 6)) {
     document.querySelector("#lugiaMusic").pause();
     let e = document.querySelector(".flute-results");
+
+    let failItem = { result: failTitle, skips: skips, misses: misses, date: new Date().toLocaleString() };
+    history.push(failItem);
+    localStorage.setItem('historicoResultados', JSON.stringify(history));
+
+    document.getElementById('noHistoryMessage').style.display = 'none';
+
+    history.forEach(item => {
+      histItem.textContent = `${item.result} - ${skipsTitle}: ${item.skips} - ${missesTitle}: ${item.misses} - ${item.date}`;
+      historyListEl.appendChild(histItem);
+    });
+
     return (
       (e.innerHTML =
-        "pt-br" == currentLanguage || "pt_br" == currentLanguage
-          ? `Falha!<br>Skips: ${skips}<br>Erros: ${misses}`
-          : `Fail!<br>Skips: ${skips}<br>Misses: ${misses}`),
+        `${failTitle}!<br>${skipsTitle}: ${skips}<br>${missesTitle}: ${misses}`),
       (e.style.display = "block"),
       changeBgColor && (document.body.style.backgroundColor = "#3b1f22ff"),
       (imageText.style.top = "-200%"),
@@ -224,10 +263,19 @@ function updateImageText() {
     // console.log("SUCCESS!"), 
     (success = !0);
     let e = document.querySelector(".flute-results");
+
+
+    let successItem = { result: successTitle, skips: skips, misses: misses, date: new Date().toLocaleString() };
+    history.push(successItem);
+    localStorage.setItem('historicoResultados', JSON.stringify(history));
+    history.forEach(item => {
+      histItem.textContent = `${item.result} - ${skipsTitle}: ${item.skips} - ${missesTitle}: ${item.misses} - ${item.date}`;
+      historyListEl.appendChild(histItem);
+    });
+    document.getElementById('noHistoryMessage').style.display = 'none';
+
     (e.innerHTML =
-      "pt-br" == currentLanguage || "pt_br" == currentLanguage
-        ? `Sucesso!<br>Skips: ${skips}<br>Erros: ${misses}`
-        : `Success!<br>Skips: ${skips}<br>Misses: ${misses}`),
+      `${successTitle}!<br>${skipsTitle}: ${skips}<br>${missesTitle}: ${misses}`),
       (e.style.display = "block"),
       changeBgColor && (document.body.style.backgroundColor = "#13382cff"),
       (image.src = successImageUrl),
@@ -595,15 +643,42 @@ const lugiaMusic = document.getElementById('lugiaMusic');
 const volumeControl = document.getElementById('volumeControl');
 let savedVolume = localStorage.getItem('savedVolume') ? JSON.parse(localStorage.getItem('savedVolume')) : null;
 if (savedVolume) {
-    missSound.volume = savedVolume.miss;
-    lugiaMusic.volume = savedVolume.music;
-    volumeControl.value = (savedVolume.music * 100).toFixed(0);
+  missSound.volume = savedVolume.miss;
+  lugiaMusic.volume = savedVolume.music;
+  volumeControl.value = (savedVolume.music * 100).toFixed(0);
 }
 
-volumeControl.addEventListener('input', function() {
-    missSound.volume = ((this.value * 0.2) / 100).toFixed(4);
-    lugiaMusic.volume = (this.value / 100).toFixed(4);
-     let savedVolume ={ miss: missSound.volume, music: lugiaMusic.volume };
-        localStorage.setItem('savedVolume', JSON.stringify(savedVolume));
+volumeControl.addEventListener('input', function () {
+  missSound.volume = ((this.value * 0.2) / 100).toFixed(4);
+  lugiaMusic.volume = (this.value / 100).toFixed(4);
+  let savedVolume = { miss: missSound.volume, music: lugiaMusic.volume };
+  localStorage.setItem('savedVolume', JSON.stringify(savedVolume));
 });
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  const fabButton = document.querySelector('.fab-button');
+  const fabMenu = document.querySelector('.fab-menu');
+  const fabContainer = document.querySelector('.fab-container');
+
+  if (fabButton && fabMenu) {
+    fabButton.addEventListener('click', function () {
+      if (history.length === 0) {
+        document.getElementById('noHistoryMessage').style.display = 'flex';
+      } else {
+        document.getElementById('noHistoryMessage').style.display = 'none';
+      }
+      fabMenu.style.display = fabMenu.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Optional: Close menu when clicking outside
+    document.addEventListener('click', function (event) {
+      if (!fabContainer.contains(event.target)) {
+        fabMenu.style.display = 'none';
+      }
+    });
+  }
+});
+
+
 
