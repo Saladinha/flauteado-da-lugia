@@ -937,3 +937,23 @@ img.blur {
   'GRAD' 0,
   'opsz' 24
 }
+
+/* Tiny spinner next to play button */
+.tiny-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255,255,255,0.15);
+    border-top-color: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    animation: tiny-spin 0.9s linear infinite;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+.tiny-spinner.hidden { display: none; }
+
+@keyframes tiny-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}

@@ -292,23 +292,54 @@ function updateImageText() {
 document.addEventListener("DOMContentLoaded", () => {
   playButton = document.querySelector("#play-button");
   const e = document.querySelector("#lugiaMusic");
-  let t = !1;
-  e.addEventListener("canplaythrough", () => {
-    (t = !0),
-      (playButton.textContent = "Bora flautear!"),
-      (playButton.style.backgroundColor = "#23072b"),
-      (playButton.disabled = !1);
-  }),
-    playButton.addEventListener("click", () => {
-      t &&
-        (e.play(),
-          (window.notes = generateNotes()),
-          (playButton.style.display = "none"),
-          updateImageText());
-    }),
-    (playButton.textContent = "Loading..."),
-    (playButton.style.backgroundColor = "gray"),
-    (playButton.disabled = !0);
+  const playSpinner = document.getElementById('play-spinner');
+  let t = false;
+
+  let readyFallbackTimer = setTimeout(() => {
+    console.warn('Audio readiness fallback triggered: enabling play button');
+    setReady();
+  }, 1500);
+
+  function setReady() {
+    if (t) return;
+    t = true;
+    if (readyFallbackTimer) {
+      clearTimeout(readyFallbackTimer);
+      readyFallbackTimer = null;
+    }
+    playButton.textContent = "Bora flautear!";
+    playButton.style.backgroundColor = "#23072b";
+    playButton.disabled = false;
+    if (playSpinner) playSpinner.classList.add('hidden');
+  }
+
+
+  e.addEventListener("canplaythrough", setReady);
+  e.addEventListener("loadeddata", setReady);
+  e.addEventListener("error", () => { setReady(); });
+
+  if (e.readyState >= 3) setReady();
+
+  playButton.addEventListener("click", () => {
+    if (!t) {
+      e.play().catch(() => {});
+      setReady();
+    }
+
+    if (t) {
+      e.play();
+      window.notes = generateNotes();
+      playButton.style.display = "none";
+      updateImageText();
+    }
+  });
+
+  if (!t) {
+    playButton.textContent = "Loading...";
+    playButton.style.backgroundColor = "gray";
+    playButton.disabled = true;
+    if (playSpinner) playSpinner.classList.remove('hidden');
+  }
 });
 
 
