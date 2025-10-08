@@ -175,8 +175,8 @@ function updateImageText() {
       (playButton.textContent = "Bora dnv burrão"),
       (playButton.style.display = "inline-block"),
       void (playButton.onclick = function () {
-        window.location.href = urlPath;
-
+       //window.location.href = urlPath;
+       refreshAndScrollToBottom();
       })
     );
   }
@@ -284,8 +284,8 @@ function updateImageText() {
       (playButton.textContent = "Bora dnv"),
       (playButton.style.display = "inline-block"),
       (playButton.onclick = function () {
-        window.location.href = urlPath;
-
+       // window.location.href = urlPath;
+        refreshAndScrollToBottom();
       });
   }
 }
@@ -680,3 +680,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+function refreshAndScrollToBottom() {
+  location.reload(); 
+  setTimeout(function() {
+    window.scrollTo(0, document.body.scrollHeight); 
+  }, 500);
+}
