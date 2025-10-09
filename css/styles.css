@@ -938,7 +938,10 @@ img.blur {
   'opsz' 24
 }
 
-/* Tiny spinner next to play button */
+
+.tiny-spinner-wrapper {
+    display: inline-block;
+}
 .tiny-spinner {
     display: inline-block;
     width: 16px;
@@ -948,10 +951,9 @@ img.blur {
     border-radius: 50%;
     animation: tiny-spin 0.9s linear infinite;
     vertical-align: middle;
-    margin-left: 8px;
 }
 
-.tiny-spinner.hidden { display: none; }
+.hidden { display: none !important; }
 
 @keyframes tiny-spin {
     from { transform: rotate(0deg); }

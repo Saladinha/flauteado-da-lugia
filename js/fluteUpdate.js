@@ -293,6 +293,7 @@ document.addEventListener("DOMContentLoaded", () => {
   playButton = document.querySelector("#play-button");
   const e = document.querySelector("#lugiaMusic");
   const playSpinner = document.getElementById('play-spinner');
+    const playButtonEl = document.getElementById('play-button');
   let t = false;
 
   let readyFallbackTimer = setTimeout(() => {
@@ -310,6 +311,8 @@ document.addEventListener("DOMContentLoaded", () => {
     playButton.textContent = "Bora flautear!";
     playButton.style.backgroundColor = "#23072b";
     playButton.disabled = false;
+
+    if (playButtonEl) playButton.classList.remove('hidden');
     if (playSpinner) playSpinner.classList.add('hidden');
   }
 
@@ -338,6 +341,8 @@ document.addEventListener("DOMContentLoaded", () => {
     playButton.textContent = "Loading...";
     playButton.style.backgroundColor = "gray";
     playButton.disabled = true;
+
+    if (playButton) playButton.classList.add('hidden');
     if (playSpinner) playSpinner.classList.remove('hidden');
   }
 });
