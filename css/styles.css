@@ -914,6 +914,8 @@ img.blur {
   position: absolute;
   bottom: 70px;
   right: 0;
+  max-height: 80vh;
+ overflow-y: auto;
  
 }
 

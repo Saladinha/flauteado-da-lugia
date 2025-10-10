@@ -75,11 +75,14 @@ if ("pt-br" == currentLanguage || "pt_br" == currentLanguage) {
 let history = localStorage.getItem('historicoResultados') ? JSON.parse(localStorage.getItem('historicoResultados')) : [];
 const historyListEl = document.getElementById("historyList");
 document.getElementById('historyList').style.display = 'none';
+
 history.forEach(item => {
   const histItem = document.createElement('li');
   histItem.textContent = `${item.result} - ${skipsTitle}: ${item.skips} - ${missesTitle}: ${item.misses} - ${item.date}`;
   historyListEl.appendChild(histItem);
 });
+
+
 
 function playMissSound() {
   missSound.pause(),
@@ -158,6 +161,7 @@ function updateImageText() {
     history.push(failItem);
     localStorage.setItem('historicoResultados', JSON.stringify(history));
 
+    
       const newHistItem = document.createElement('li');
       newHistItem.textContent = `${failTitle} - ${skipsTitle}: ${skips} - ${missesTitle}: ${misses} - ${failItem.date}`;
       historyListEl.appendChild(newHistItem);
@@ -702,7 +706,11 @@ document.addEventListener('DOMContentLoaded', function () {
       } else {
         document.getElementById('noHistoryMessage').style.display = 'none';
       }
-      fabMenu.style.display = fabMenu.style.display === 'block' ? 'none' : 'block';
+      const willShow = fabMenu.style.display !== 'block';
+      fabMenu.style.display = willShow ? 'block' : 'none';
+      if (willShow) {
+        fabMenu.scrollTop = fabMenu.scrollHeight;
+      }
     });
 
     // Optional: Close menu when clicking outside
