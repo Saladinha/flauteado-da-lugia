@@ -757,35 +757,52 @@
             </div>
 
             <div class="modal-section">
-                <h3>1️⃣ Chance Base com Itens</h3>
+                <h3>1️⃣ Chance Base</h3>
                 <div class="code-block">
-                    Lados Efetivos = Lados Base × (1 - Redução dos Itens / 100)
+                    Chance Base = 1 / Lados do Dado
                 </div>
                 <p>
-                    <strong>Exemplo:</strong> Dado de 100 lados com 30% de redução (Totem + Bonus + Chocolate):<br>
-                    100 × (1 - 30/100) = <span class="highlight">70 lados efetivos</span><br>
-                    Chance base = 1/70 = <span class="highlight">1.43%</span>
+                    <strong>Exemplo:</strong> Pokémon com dificuldade de captura equivalente a um dado de 100 lados:<br>
+                    Chance base = 1/100 = <span class="highlight">1%</span>
                 </p>
             </div>
 
             <div class="modal-section">
-                <h3>2️⃣ Chance com Pokéball Específica</h3>
+                <h3>2️⃣ Bônus dos Itens (Multiplicativo)</h3>
                 <div class="code-block">
-                    Lados Efetivos = Lados após Itens ÷ Rate da Ball<br>
-                    Chance = 1 / Lados Efetivos
+                    Multiplicador dos Itens = 1 + (Soma dos Bônus / 100)<br>
+                    Chance com Itens = Chance Base × Multiplicador dos Itens
                 </div>
                 <p>
-                    <strong>Exemplo:</strong> Com 70 lados efetivos e Ultra Ball (rate 4x):<br>
-                    70 ÷ 4 = 17.5 lados<br>
-                    Chance = 1/17.5 = <span class="highlight">5.71%</span>
+                    <strong>Exemplo:</strong> Chance base de 1% com 30% de bônus (Totem 10% + Bonus 10% + Chocolate 10%):<br>
+                    Multiplicador = 1 + 30/100 = <span class="highlight">1.3x</span><br>
+                    Chance com itens = 1% × 1.3 = <span class="highlight">1.3%</span>
+                </p>
+                <p>
+                    <strong>Importante:</strong> Os itens <strong>aumentam</strong> a chance de captura multiplicativamente, não reduzem a dificuldade!
                 </p>
             </div>
 
             <div class="modal-section">
-                <h3>3️⃣ Critical Catch (Evento Probabilístico)</h3>
+                <h3>3️⃣ Rate das Pokéballs (Multiplicativo)</h3>
                 <div class="code-block">
-                    Chance Normal = 1 / Lados Efetivos<br>
-                    Chance Crítica = 2 / Lados Efetivos (dobra a chance)<br>
+                    Chance com Ball = Chance com Itens × Rate da Ball
+                </div>
+                <p>
+                    <strong>Exemplo:</strong> Chance de 1.3% com itens usando Ultra Ball (rate 4x):<br>
+                    1.3% × 4 = <span class="highlight">5.2%</span>
+                </p>
+                <p>
+                    <strong>Exemplo 2:</strong> Mesma situação com Beast Ball (rate 10x):<br>
+                    1.3% × 10 = <span class="highlight">13%</span>
+                </p>
+            </div>
+
+            <div class="modal-section">
+                <h3>4️⃣ Critical Catch (Evento Probabilístico)</h3>
+                <div class="code-block">
+                    Chance Normal = Chance com Ball<br>
+                    Chance Crítica = Chance com Ball × 2 (dobra a chance)<br>
                     <br>
                     Chance Média = (1 - C%) × Chance Normal + C% × Chance Crítica
                 </div>
@@ -795,26 +812,26 @@
                     <strong>daquela jogada específica</strong> será dobrada!
                 </p>
                 <p>
-                    <strong>Exemplo:</strong> Ultra Ball (5.71% normal) com 10% de critical:<br>
-                    • Em 90% das jogadas: chance de 5.71%<br>
-                    • Em 10% das jogadas: chance de 11.43% (dobrada!)<br>
-                    • Média ponderada: 0.9 × 5.71% + 0.1 × 11.43% = <span class="highlight">6.28%</span>
+                    <strong>Exemplo:</strong> Chance de 5.2% (itens + Ultra Ball) com 10% de critical catch:<br>
+                    • Em 90% das jogadas: chance de 5.2%<br>
+                    • Em 10% das jogadas: chance de 10.4% (dobrada!)<br>
+                    • Média ponderada: 0.9 × 5.2% + 0.1 × 10.4% = <span class="highlight">5.72%</span>
                 </p>
             </div>
 
             <div class="modal-section">
-                <h3>4️⃣ Distribuição de Pokéballs</h3>
+                <h3>5️⃣ Distribuição de Pokéballs</h3>
                 <div class="code-block">
                     Chance Total = Σ (Proporção da Ball × Chance da Ball)
                 </div>
                 <p>
-                    <strong>Exemplo:</strong> 50% Ultra Ball (6.28%) + 50% Beast Ball (15.71%):<br>
-                    0.5 × 6.28% + 0.5 × 15.71% = <span class="highlight">11% de chance média por jogada</span>
+                    <strong>Exemplo:</strong> 50% Ultra Ball (5.72%) + 50% Beast Ball (14.3%):<br>
+                    0.5 × 5.72% + 0.5 × 14.3% = <span class="highlight">10.01% de chance média por jogada</span>
                 </p>
             </div>
 
             <div class="modal-section">
-                <h3>5️⃣ Número de Jogadas Necessárias</h3>
+                <h3>6️⃣ Número de Jogadas Necessárias</h3>
                 <div class="code-block">
                     N = log(1 - P desejado) ÷ log(1 - chance por jogada)
                 </div>
@@ -823,21 +840,26 @@
                     "Quantas tentativas preciso para ter P% de chance de sucesso?"
                 </p>
                 <p>
-                    <strong>Exemplo:</strong> Com 11% de chance por jogada, para ter 95% de certeza:<br>
-                    N = log(1 - 0.95) ÷ log(1 - 0.11)<br>
-                    N = log(0.05) ÷ log(0.89) = <span class="highlight">25.7 ≈ 26 pokéballs</span>
+                    <strong>Exemplo:</strong> Com 10.01% de chance por jogada, para ter 95% de certeza:<br>
+                    N = log(1 - 0.95) ÷ log(1 - 0.1001)<br>
+                    N = log(0.05) ÷ log(0.8999) = <span class="highlight">28.3 ≈ 29 pokéballs</span>
                 </p>
             </div>
 
             <div class="modal-section">
-                <h3>✅ Resumo</h3>
+                <h3>✅ Resumo da Ordem de Aplicação</h3>
                 <ul>
-                    <li>Os <strong>itens</strong> reduzem os lados do dado (aumentam chance base)</li>
-                    <li>Cada <strong>pokéball</strong> tem seu multiplicador (rate)</li>
-                    <li>O <strong>critical catch</strong> é um evento aleatório que dobra a chance em X% das jogadas</li>
-                    <li>A <strong>distribuição</strong> pondera diferentes tipos de balls usadas</li>
-                    <li>O resultado final considera <strong>eventos repetidos</strong> para alcançar a probabilidade desejada</li>
+                    <li><strong>1º:</strong> Chance base = 1 / Lados do Dado</li>
+                    <li><strong>2º:</strong> Itens <strong>multiplicam</strong> a chance base (ex: +30% → ×1.3)</li>
+                    <li><strong>3º:</strong> Rate da Pokéball <strong>multiplica</strong> a chance com itens (ex: Ultra Ball ×4)</li>
+                    <li><strong>4º:</strong> Critical Catch tem X% de chance de <strong>dobrar</strong> o resultado final de cada jogada</li>
+                    <li><strong>5º:</strong> Distribuição de balls pondera as diferentes chances</li>
+                    <li><strong>6º:</strong> Distribuição geométrica calcula quantas tentativas são necessárias</li>
                 </ul>
+                <p style="margin-top: 15px;">
+                    <strong>📐 Fórmula completa:</strong><br>
+                    <span class="highlight">Chance Final = (1/Dado) × (1 + Itens%) × BallRate × [1 + CriticalChance × 1]</span>
+                </p>
             </div>
         </div>
     </div>
@@ -922,24 +944,24 @@
                     throw new Error('A probabilidade deve estar entre 0.0001% e 99.9999%.');
                 }
 
-                // 2. Calcular redução dos itens
-                let itemReduction = 0;
+                // 2. Calcular bônus dos itens (aumentam a chance de captura)
+                let itemBonus = 0;
 
                 if (document.getElementById('item-clover').checked) {
-                    itemReduction += parseFloat(document.getElementById('item-clover-value').value);
+                    itemBonus += parseFloat(document.getElementById('item-clover-value').value);
                 }
                 if (document.getElementById('item-totem').checked) {
-                    itemReduction += parseFloat(document.getElementById('item-totem-value').value);
+                    itemBonus += parseFloat(document.getElementById('item-totem-value').value);
                 }
                 if (document.getElementById('item-bonus').checked) {
-                    itemReduction += parseFloat(document.getElementById('item-bonus-value').value);
+                    itemBonus += parseFloat(document.getElementById('item-bonus-value').value);
                 }
                 if (document.getElementById('item-chocolate').checked) {
-                    itemReduction += parseFloat(document.getElementById('item-chocolate-value').value);
+                    itemBonus += parseFloat(document.getElementById('item-chocolate-value').value);
                 }
 
-                // Aplicar redução dos itens ao número de lados do dado
-                const diceSidesAfterItems = baseDiceSides * (1 - itemReduction / 100);
+                // Multiplicador dos itens (aumentam a chance multiplicativamente)
+                const itemMultiplier = 1 + itemBonus / 100;
 
                 // 3. Obter chance de critical catch
                 const criticalChance = parseFloat(document.querySelector('input[name="critical"]:checked').value) / 100;
@@ -969,13 +991,11 @@
                     ballsUsed.forEach(ball => {
                         const proportion = ball.percentage / 100; // Converte % para proporção
 
-                        // Chance base com essa pokéball (considerando rate)
-                        const effectiveDiceSides = diceSidesAfterItems / ball.rate;
-                        const baseChancePerThrow = 1 / effectiveDiceSides;
+                        // Chance base: (1/baseDiceSides) × itemMultiplier × ballRate
+                        const baseChancePerThrow = (1 / baseDiceSides) * itemMultiplier * ball.rate;
 
-                        // Chance com critical (dobra a chance = divide lados pela metade)
-                        const criticalDiceSides = effectiveDiceSides / 2;
-                        const criticalChancePerThrow = 1 / criticalDiceSides;
+                        // Chance com critical (dobra a chance)
+                        const criticalChancePerThrow = baseChancePerThrow * 2;
 
                         // Chance combinada por jogada (normal + critical)
                         const combinedChancePerThrow = (1 - criticalChance) * baseChancePerThrow +
@@ -991,8 +1011,8 @@
                     displayResult({
                         n: n,
                         baseDiceSides: baseDiceSides,
-                        diceSidesAfterItems: diceSidesAfterItems,
-                        itemReduction: itemReduction,
+                        itemMultiplier: itemMultiplier,
+                        itemBonus: itemBonus,
                         criticalChance: criticalChance * 100,
                         targetProbability: targetProbability * 100,
                         totalPercentage: totalPercentage,
@@ -1019,8 +1039,10 @@
                     <p><strong>Chance base:</strong> 1 em ${data.baseDiceSides.toFixed(2)} (${(100 / data.baseDiceSides).toFixed(4)}%)</p>
             `;
 
-            if (data.itemReduction > 0) {
-                html += `<p><strong>Redução por itens:</strong> ${data.itemReduction.toFixed(1)}% → 1 em ${data.diceSidesAfterItems.toFixed(2)} (${(100 / data.diceSidesAfterItems).toFixed(4)}%)</p>`;
+            if (data.itemBonus > 0) {
+                const baseChance = 100 / data.baseDiceSides;
+                const chanceWithItems = baseChance * data.itemMultiplier;
+                html += `<p><strong>Bônus por itens:</strong> +${data.itemBonus.toFixed(1)}% → ${chanceWithItems.toFixed(4)}% de chance (multiplicador: ${data.itemMultiplier.toFixed(2)}x)</p>`;
             }
 
             if (data.criticalChance > 0) {
