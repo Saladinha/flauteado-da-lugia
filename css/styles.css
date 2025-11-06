@@ -13,6 +13,7 @@
 
 .button-rgb {
     padding: 0.6em 2em;
+    margin-top: 1em;
     border: none;
     outline: none;
     color: rgb(255, 255, 255);
@@ -340,20 +341,10 @@ article {
     text-align: center
 }
 
-.bubble-text h2,
-.bubble-text h4 {
-    margin-bottom: 1rem;
-    transition: transform .6s ease-in-out;
-    font-family: var(--font-headings)
-}
-
 .text-wrapper span {
     text-align: left;
     align-self: left
 }
-
-
-
 
 
 .bubble-text {
@@ -369,9 +360,7 @@ article {
 }
 
 
-.bubble-text h4,
-.contact-container {
-    display: flex;
+.bubble-text h4 {
     padding: 1rem;
     text-align: center
 }

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Tentativas (N)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 550px;
+            margin: auto;
+            padding: 25px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        .input-group input {
+            width: calc(100% - 110px); /* Ajustado para deixar espaço para o % */
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .input-group span {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #666;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 17px;
+            font-weight: bold;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #resultado {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            background-color: #e9f7ef; /* Fundo suave para o resultado */
+            border-radius: 8px;
+            padding: 15px;
+        }
+        #resultado p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #28a745;
+        }
+        #resultado strong {
+            color: #0056b3;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Calculadora de Tentativas (N)</h2>
+        <p>Descubra quantas jogadas são necessárias para atingir uma probabilidade (P) de tirar o número 1 (ou qualquer face específica) pelo menos uma vez.</p>
+        
+        <div class="input-group">
+            <label for="lados">Quantos lados tem o dado?</label>
+            <input type="number" id="lados" value="6" min="2">
+        </div>
+        
+        <div class="input-group">
+            <label for="probabilidadeDesejada">Probabilidade (P) que você deseja (em %)</label>
+            <input type="number" id="probabilidadeDesejada" value="50" min="0.0001" max="99.9999" step="0.0001"><span>%</span>
+        </div>
+        
+        <button id="calcularBtn">Calcular N</button>
+        
+        <div id="resultado">
+            </div>
+    </div>
+
+    <script>
+        
+        /**
+         * Calcula o número de jogadas (N) necessárias para atingir uma probabilidade (P)
+         * de tirar uma face específica pelo menos uma vez.
+         *
+         * @param {number} lados - O número de lados do dado (L).
+         * @param {number} pDesejado - A probabilidade desejada (P), em decimal (ex: 0.5 para 50%).
+         * @returns {number | string} O número de jogadas (N) ou uma mensagem de erro.
+         */
+        function calcularN(lados, pDesejado) {
+            
+            // Validações básicas
+            if (lados < 2) {
+                return "O dado deve ter pelo menos 2 lados.";
+            }
+            if (pDesejado <= 0 || pDesejado >= 1) { // P deve estar entre 0 e 1 (exclusivo)
+                return "A probabilidade desejada deve ser maior que 0% e menor que 100%.";
+            }
+
+            const pComplemento = 1 - pDesejado; // (1 - P) da fórmula
+            const baseLog = (lados - 1) / lados; // (L - 1) / L da fórmula
+
+            // Validação para evitar log de zero ou negativo (ocorre se L=1, mas já bloqueamos)
+            if (baseLog <= 0) {
+                 return "Erro de cálculo: (L-1)/L deve ser maior que 0. Verifique os lados do dado.";
+            }
+
+            // Aplica a fórmula: N = ln(1 - P) / ln((L - 1) / L)
+            const N = Math.log(pComplemento) / Math.log(baseLog);
+
+            return N;
+        }
+
+        // --- Lógica de Interação da Página ---
+
+        const inputLados = document.getElementById('lados');
+        const inputProbabilidadeDesejada = document.getElementById('probabilidadeDesejada');
+        const botao = document.getElementById('calcularBtn');
+        const divResultado = document.getElementById('resultado');
+
+        function atualizarResultadosNaTela() {
+            const lados = parseInt(inputLados.value);
+            // Converte a porcentagem para decimal
+            const probabilidadeDesejadaPercentual = parseFloat(inputProbabilidadeDesejada.value);
+            const pDesejadoDecimal = probabilidadeDesejadaPercentual / 100;
+
+            let resultadoCalculo;
+            let mensagemErro = "";
+
+            // Validações iniciais dos inputs
+            if (isNaN(lados) || lados < 2) {
+                mensagemErro = "Por favor, insira um número de lados válido (mínimo 2).";
+            } else if (isNaN(probabilidadeDesejadaPercentual) || probabilidadeDesejadaPercentual <= 0 || probabilidadeDesejadaPercentual >= 100) {
+                 mensagemErro = "A probabilidade desejada deve estar entre 0.0001% e 99.9999%.";
+            } else {
+                resultadoCalculo = calcularN(lados, pDesejadoDecimal);
+            }
+            
+            if (mensagemErro) {
+                divResultado.innerHTML = `<p class="error">${mensagemErro}</p>`;
+                return;
+            }
+
+            if (typeof resultadoCalculo === 'string') { // Se a função retornar uma string, é um erro
+                divResultado.innerHTML = `<p class="error">${resultadoCalculo}</p>`;
+            } else {
+                divResultado.innerHTML = `
+                    <p>Para um dado de <strong>${lados} lados</strong>, com uma probabilidade de <strong>${probabilidadeDesejadaPercentual}%</strong> de tirar um número específico pelo menos uma vez, você precisará de aproximadamente:</p>
+                    <p><strong>${resultadoCalculo.toFixed(2)} jogadas</strong></p>
+                    <p>(Sempre arredonde para cima, então: <strong>${Math.ceil(resultadoCalculo)} jogadas</strong> para garantir a chance ou superá-la.)</p>
+                `;
+            }
+        }
+
+        // Adiciona ouvintes de evento
+        botao.addEventListener('click', atualizarResultadosNaTela);
+        inputLados.addEventListener('input', atualizarResultadosNaTela);
+        inputProbabilidadeDesejada.addEventListener('input', atualizarResultadosNaTela);
+
+        // Roda ao carregar a página com os valores padrão
+        atualizarResultadosNaTela();
+
+    </script>
+
+</body>
+</html>

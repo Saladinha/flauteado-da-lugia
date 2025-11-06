@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Captura Pokémon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+        }
+
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.2em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.95em;
+        }
+
+        .section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border: 2px solid #e9ecef;
+        }
+
+        .section-title {
+            color: #495057;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .input-group input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* Itens Section */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .item-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #e9ecef;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .item-card input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .item-image {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        .item-input {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .item-input input {
+            width: 70px;
+            padding: 5px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        /* Critical Catch Section */
+        .critical-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .critical-option {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid #e9ecef;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .critical-option:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .critical-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .critical-option.selected {
+            border-color: #667eea;
+            background-color: #f0f3ff;
+        }
+
+        .critical-image {
+            width: 35px;
+            height: 35px;
+            object-fit: contain;
+        }
+
+        .critical-info {
+            flex: 1;
+        }
+
+        .critical-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.85em;
+        }
+
+        .critical-chance {
+            color: #667eea;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        /* Pokéballs Section */
+        .pokeballs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .pokeball-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #e9ecef;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pokeball-image {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+        }
+
+        .pokeball-info {
+            flex: 1;
+        }
+
+        .pokeball-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 3px;
+            font-size: 0.9em;
+        }
+
+        .pokeball-rate {
+            color: #667eea;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .pokeball-input {
+            display: flex;
+            align-items: center;
+        }
+
+        .pokeball-input input {
+            width: 80px;
+            padding: 6px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        /* Button */
+        .calculate-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            width: 100%;
+            transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
+            margin-top: 10px;
+        }
+
+        .calculate-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .calculate-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: linear-gradient(135deg, #999 0%, #777 100%);
+        }
+
+        /* Result */
+        .result {
+            background: linear-gradient(135deg, #e0f7fa 0%, #e1bee7 100%);
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 25px;
+            text-align: center;
+            display: none;
+        }
+
+        .result.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result h3 {
+            color: #4a148c;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .result-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 15px 0;
+        }
+
+        .result-details {
+            color: #555;
+            line-height: 1.8;
+            font-size: 1.05em;
+        }
+
+        .result-details strong {
+            color: #4a148c;
+        }
+
+        .error {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #ef5350;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        /* Info Button */
+        .info-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .info-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            overflow: auto;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 20px;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .modal-header h2 {
+            color: #667eea;
+            margin: 0;
+            font-size: 1.8em;
+        }
+
+        .close-button {
+            background: none;
+            border: none;
+            font-size: 32px;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.3s;
+            line-height: 1;
+        }
+
+        .close-button:hover {
+            color: #667eea;
+        }
+
+        .modal-section {
+            margin-bottom: 20px;
+        }
+
+        .modal-section h3 {
+            color: #495057;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-section p, .modal-section li {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .modal-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .modal-section li {
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .modal-section li:before {
+            content: "•";
+            color: #667eea;
+            font-weight: bold;
+            position: absolute;
+            left: 8px;
+        }
+
+        .code-block {
+            background-color: #f8f9fa;
+            padding: 12px;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #333;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🎮 Calculadora de Captura Pokémon</h1>
+        <p class="subtitle">Calcule quantas Pokéballs você precisa para ter uma chance P de capturar o Pokémon!</p>
+
+        <!-- Configuração Básica -->
+        <div class="section">
+            <h2 class="section-title">⚙️ Configuração Básica</h2>
+
+            <div class="input-group">
+                <label for="diceSides">Qual a dificuldade de captura tem o Pokémon?</label>
+                <label for="diceSides">Imagine um Dado 🎲 quantos lados ele teria?</label>
+                <label for="diceSides">Para te ajudar a imaginar considere que uma Magikarp <img
+                        src="imagens/Mini_Magikarp.png" alt="Clover"
+                        style="width: 32px; height: 32px; vertical-align: middle; margin-right: 8px;"> seria um dado de
+                    uns 2 lados.</label>
+                <input type="number" id="diceSides" value="100" min="2">
+            </div>
+
+            <div class="input-group">
+                <label for="targetProbability">Probabilidade desejada de captura (%)</label>
+                <input type="number" id="targetProbability" value="95" min="0.0001" max="99.9999" step="0.01">
+            </div>
+        </div>
+
+        <!-- Itens -->
+        <div class="section">
+            <h2 class="section-title"><img src="imagens/Itens/28px-Four_Leaf_Clover.gif" alt="Clover"
+                    style="width: 32px; height: 32px; vertical-align: middle; margin-right: 8px;"> Itens de Captura</h2>
+            <div class="input-group">
+                <label for="diceSides">Quanto você acredita que esses itens melhoram em % a chance de captura e quais
+                    você usará?</label>
+            </div>
+            <div class="items-grid" id="itemsGrid">
+                <div class="item-card">
+                    <input type="checkbox" id="item-clover" class="item-checkbox">
+                    <img src="imagens/Itens/28px-Four_Leaf_Clover.gif" alt="Four Leaf Clover" class="item-image">
+                    <div class="item-info">
+                        <div class="item-name">Four Leaf Clover</div>
+                        <div class="item-input">
+                            <input type="number" id="item-clover-value" value="5" min="0" max="100" step="0.1">
+                            <span>%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item-card">
+                    <input type="checkbox" id="item-totem" class="item-checkbox">
+                    <img src="imagens/Itens/totem.png" alt="Totem" class="item-image">
+                    <div class="item-info">
+                        <div class="item-name">Totem</div>
+                        <div class="item-input">
+                            <input type="number" id="item-totem-value" value="10" min="0" max="100" step="0.1">
+                            <span>%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item-card">
+                    <input type="checkbox" id="item-bonus" class="item-checkbox">
+                    <img src="imagens/Itens/Bonus_Mensal.png" alt="Bonus Mensal" class="item-image">
+                    <div class="item-info">
+                        <div class="item-name">Bonus Mensal</div>
+                        <div class="item-input">
+                            <input type="number" id="item-bonus-value" value="10" min="0" max="100" step="0.1">
+                            <span>%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item-card">
+                    <input type="checkbox" id="item-chocolate" class="item-checkbox">
+                    <img src="imagens/Itens/chocolate.png" alt="Chocolate" class="item-image">
+                    <div class="item-info">
+                        <div class="item-name">Chocolate</div>
+                        <div class="item-input">
+                            <input type="number" id="item-chocolate-value" value="10" min="0" max="100" step="0.1">
+                            <span>%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Critical Catch -->
+        <div class="section">
+            <h2 class="section-title"><img src="imagens/Criticos/Critical_catch_charm_Tier_6.png"
+                    alt="Critcal Catch Charm"
+                    style="width: 32px; height: 32px; vertical-align: middle; margin-right: 8px;"> Critical Catch
+                Charm</h2>
+            <div class="critical-grid" id="criticalGrid">
+                <div class="critical-option" data-tier="0">
+                    <input type="radio" name="critical" id="critical-none" value="0" checked>
+                    <div class="critical-info">
+                        <div class="critical-name">Sem Charm</div>
+                        <div class="critical-chance">0%</div>
+                    </div>
+                </div>
+
+                <div class="critical-option" data-tier="1">
+                    <input type="radio" name="critical" id="critical-1" value="4">
+                    <img src="imagens/Criticos/Critical_Catch_Charm_(Tier_1).png" alt="Tier 1" class="critical-image">
+                    <div class="critical-info">
+                        <div class="critical-name">Tier 1</div>
+                        <div class="critical-chance">4%</div>
+                    </div>
+                </div>
+
+                <div class="critical-option" data-tier="2">
+                    <input type="radio" name="critical" id="critical-2" value="7">
+                    <img src="imagens/Criticos/Critical_catch_charm_Tier_2.png" alt="Tier 2" class="critical-image">
+                    <div class="critical-info">
+                        <div class="critical-name">Tier 2</div>
+                        <div class="critical-chance">7%</div>
+                    </div>
+                </div>
+
+                <div class="critical-option" data-tier="3">
+                    <input type="radio" name="critical" id="critical-3" value="10">
+                    <img src="imagens/Criticos/Critical_catch_charm_Tier_3.png" alt="Tier 3" class="critical-image">
+                    <div class="critical-info">
+                        <div class="critical-name">Tier 3</div>
+                        <div class="critical-chance">10%</div>
+                    </div>
+                </div>
+
+                <div class="critical-option" data-tier="4">
+                    <input type="radio" name="critical" id="critical-4" value="13">
+                    <img src="imagens/Criticos/Critical_catch_charm_Tier_4.png" alt="Tier 4" class="critical-image">
+                    <div class="critical-info">
+                        <div class="critical-name">Tier 4</div>
+                        <div class="critical-chance">13%</div>
+                    </div>
+                </div>
+
+                <div class="critical-option" data-tier="5">
+                    <input type="radio" name="critical" id="critical-5" value="17">
+                    <img src="imagens/Criticos/Critical_catch_charm_Tier_5.png" alt="Tier 5" class="critical-image">
+                    <div class="critical-info">
+                        <div class="critical-name">Tier 5</div>
+                        <div class="critical-chance">17%</div>
+                    </div>
+                </div>
+
+                <div class="critical-option" data-tier="6">
+                    <input type="radio" name="critical" id="critical-6" value="21">
+                    <img src="imagens/Criticos/Critical_catch_charm_Tier_6.png" alt="Tier 6" class="critical-image">
+                    <div class="critical-info">
+                        <div class="critical-name">Tier 6</div>
+                        <div class="critical-chance">21%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pokéballs -->
+        <div class="section">
+            <h2 class="section-title"><img src="imagens/Pokeballs/Poke-ball(1).png" alt="Pokéball"
+                    style="width: 32px; height: 32px; vertical-align: middle; margin-right: 8px;"> Distribuição de
+                Pokéballs (%)</h2>
+
+            <div class="input-group">
+
+                <label for="diceSides">Informe a porcentagem de cada tipo de Pokéball que você jogou ou pretende
+                    jogar.</label>
+                <label for="diceSides">❗O total deve somar 100% para você poder calcular.</label>
+
+            </div>
+            <div id="percentageWarning" class="error" style="display: none; margin-bottom: 15px;"></div>
+            <div class="pokeballs-grid" id="pokeballsGrid">
+                <div class="pokeball-card">
+                    <img src="imagens/Pokeballs/Ultra-ball(1).png" alt="Ultra Ball" class="pokeball-image">
+                    <div class="pokeball-info">
+                        <div class="pokeball-name">Ultra Ball</div>
+                        <div class="pokeball-rate">Rate: 4x</div>
+                        <div class="pokeball-input">
+                            <input type="number" id="ball-ultra" value="0" min="0" max="100" step="0.1" data-rate="4"
+                                class="ball-percentage">
+                            <span style="margin-left: 5px;">%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pokeball-card">
+                    <img src="imagens/Pokeballs/Premier-ball(1).png" alt="Premier Ball" class="pokeball-image">
+                    <div class="pokeball-info">
+                        <div class="pokeball-name">Premier Ball</div>
+                        <div class="pokeball-rate">Rate: 4x</div>
+                        <div class="pokeball-input">
+                            <input type="number" id="ball-premier" value="0" min="0" max="100" step="0.1" data-rate="4"
+                                class="ball-percentage">
+                            <span style="margin-left: 5px;">%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pokeball-card">
+                    <img src="imagens/Pokeballs/Engineer-ball.png" alt="Engineer Ball" class="pokeball-image">
+                    <div class="pokeball-info">
+                        <div class="pokeball-name">Engineer Ball</div>
+                        <div class="pokeball-rate">Rate: 5x</div>
+                        <div class="pokeball-input">
+                            <input type="number" id="ball-engineer" value="0" min="0" max="100" step="0.1" data-rate="5"
+                                class="ball-percentage">
+                            <span style="margin-left: 5px;">%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pokeball-card">
+                    <img src="imagens/Pokeballs/Nightmare_Ball.png" alt="Nightmare Ball" class="pokeball-image">
+                    <div class="pokeball-info">
+                        <div class="pokeball-name">Nightmare Ball</div>
+                        <div class="pokeball-rate">Rate: 6x</div>
+                        <div class="pokeball-input">
+                            <input type="number" id="ball-nightmare" value="0" min="0" max="100" step="0.1"
+                                data-rate="6" class="ball-percentage">
+                            <span style="margin-left: 5px;">%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pokeball-card">
+                    <img src="imagens/Pokeballs/Beast_Ball.png" alt="Beast Ball" class="pokeball-image">
+                    <div class="pokeball-info">
+                        <div class="pokeball-name">Beast Ball</div>
+                        <div class="pokeball-rate">Rate: 10x</div>
+                        <div class="pokeball-input">
+                            <input type="number" id="ball-beast" value="0" min="0" max="100" step="0.1" data-rate="10"
+                                class="ball-percentage">
+                            <span style="margin-left: 5px;">%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 15px; padding: 10px; background: #e9ecef; border-radius: 5px; text-align: center;">
+                <strong>Total:</strong> <span id="totalPercentage"
+                    style="color: #667eea; font-size: 1.2em; font-weight: bold;">0%</span>
+            </div>
+        </div>
+
+        <button class="calculate-btn" id="calculateBtn">Calcular Pokéballs Necessárias</button>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <!-- Info Button -->
+    <button class="info-button" id="infoBtn">i</button>
+
+    <!-- Modal -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📊 Como Funciona a Calculadora</h2>
+                <button class="close-button" id="closeModal">&times;</button>
+            </div>
+
+            <div class="modal-section">
+                <h3>1️⃣ Chance Base com Itens</h3>
+                <div class="code-block">
+                    Lados Efetivos = Lados Base × (1 - Redução dos Itens / 100)
+                </div>
+                <p>
+                    <strong>Exemplo:</strong> Dado de 100 lados com 30% de redução (Totem + Bonus + Chocolate):<br>
+                    100 × (1 - 30/100) = <span class="highlight">70 lados efetivos</span><br>
+                    Chance base = 1/70 = <span class="highlight">1.43%</span>
+                </p>
+            </div>
+
+            <div class="modal-section">
+                <h3>2️⃣ Chance com Pokéball Específica</h3>
+                <div class="code-block">
+                    Lados Efetivos = Lados após Itens ÷ Rate da Ball<br>
+                    Chance = 1 / Lados Efetivos
+                </div>
+                <p>
+                    <strong>Exemplo:</strong> Com 70 lados efetivos e Ultra Ball (rate 4x):<br>
+                    70 ÷ 4 = 17.5 lados<br>
+                    Chance = 1/17.5 = <span class="highlight">5.71%</span>
+                </p>
+            </div>
+
+            <div class="modal-section">
+                <h3>3️⃣ Critical Catch (Evento Probabilístico)</h3>
+                <div class="code-block">
+                    Chance Normal = 1 / Lados Efetivos<br>
+                    Chance Crítica = 2 / Lados Efetivos (dobra a chance)<br>
+                    <br>
+                    Chance Média = (1 - C%) × Chance Normal + C% × Chance Crítica
+                </div>
+                <p>
+                    <strong>Como funciona:</strong> O critical catch NÃO é um bônus permanente.
+                    Em <span class="highlight">X% das jogadas</span>, você terá sorte e a chance
+                    <strong>daquela jogada específica</strong> será dobrada!
+                </p>
+                <p>
+                    <strong>Exemplo:</strong> Ultra Ball (5.71% normal) com 10% de critical:<br>
+                    • Em 90% das jogadas: chance de 5.71%<br>
+                    • Em 10% das jogadas: chance de 11.43% (dobrada!)<br>
+                    • Média ponderada: 0.9 × 5.71% + 0.1 × 11.43% = <span class="highlight">6.28%</span>
+                </p>
+            </div>
+
+            <div class="modal-section">
+                <h3>4️⃣ Distribuição de Pokéballs</h3>
+                <div class="code-block">
+                    Chance Total = Σ (Proporção da Ball × Chance da Ball)
+                </div>
+                <p>
+                    <strong>Exemplo:</strong> 50% Ultra Ball (6.28%) + 50% Beast Ball (15.71%):<br>
+                    0.5 × 6.28% + 0.5 × 15.71% = <span class="highlight">11% de chance média por jogada</span>
+                </p>
+            </div>
+
+            <div class="modal-section">
+                <h3>5️⃣ Número de Jogadas Necessárias</h3>
+                <div class="code-block">
+                    N = log(1 - P desejado) ÷ log(1 - chance por jogada)
+                </div>
+                <p>
+                    Esta é a fórmula da <strong>distribuição geométrica</strong>, que calcula:
+                    "Quantas tentativas preciso para ter P% de chance de sucesso?"
+                </p>
+                <p>
+                    <strong>Exemplo:</strong> Com 11% de chance por jogada, para ter 95% de certeza:<br>
+                    N = log(1 - 0.95) ÷ log(1 - 0.11)<br>
+                    N = log(0.05) ÷ log(0.89) = <span class="highlight">25.7 ≈ 26 pokéballs</span>
+                </p>
+            </div>
+
+            <div class="modal-section">
+                <h3>✅ Resumo</h3>
+                <ul>
+                    <li>Os <strong>itens</strong> reduzem os lados do dado (aumentam chance base)</li>
+                    <li>Cada <strong>pokéball</strong> tem seu multiplicador (rate)</li>
+                    <li>O <strong>critical catch</strong> é um evento aleatório que dobra a chance em X% das jogadas</li>
+                    <li>A <strong>distribuição</strong> pondera diferentes tipos de balls usadas</li>
+                    <li>O resultado final considera <strong>eventos repetidos</strong> para alcançar a probabilidade desejada</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dados das pokéballs
+        const pokeballs = [
+            { id: 'ball-ultra', rate: 4 },
+            { id: 'ball-premier', rate: 4 },
+            { id: 'ball-engineer', rate: 5 },
+            { id: 'ball-nightmare', rate: 6 },
+            { id: 'ball-beast', rate: 10 }
+        ];
+
+        // Highlight da opção de critical selecionada
+        document.querySelectorAll('.critical-option').forEach(option => {
+            option.addEventListener('click', function () {
+                document.querySelectorAll('.critical-option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                this.querySelector('input[type="radio"]').checked = true;
+            });
+        });
+
+        // Marca a opção "Sem Charm" como selecionada inicialmente
+        document.querySelector('.critical-option[data-tier="0"]').classList.add('selected');
+
+        // Atualizar total de porcentagem em tempo real
+        function updatePercentageTotal() {
+            let total = 0;
+            document.querySelectorAll('.ball-percentage').forEach(input => {
+                total += parseFloat(input.value) || 0;
+            });
+
+            const totalSpan = document.getElementById('totalPercentage');
+            const warningDiv = document.getElementById('percentageWarning');
+            const calculateBtn = document.getElementById('calculateBtn');
+
+            totalSpan.textContent = total.toFixed(1) + '%';
+
+            if (total > 100) {
+                totalSpan.style.color = '#c62828';
+                warningDiv.textContent = '⚠️ O total das porcentagens não pode exceder 100%!';
+                warningDiv.style.display = 'block';
+                calculateBtn.disabled = true;
+            } else if (total > 0 && total < 100) {
+                totalSpan.style.color = '#ff9800';
+                warningDiv.textContent = '⚠️ O total das porcentagens está abaixo de 100%. Restam ' + (100 - total).toFixed(1) + '%.';
+                warningDiv.style.display = 'block';
+                calculateBtn.disabled = true;
+            } else if (total === 100) {
+                totalSpan.style.color = '#28a745';
+                warningDiv.style.display = 'none';
+                calculateBtn.disabled = false;
+            } else {
+                totalSpan.style.color = '#667eea';
+                warningDiv.style.display = 'none';
+                calculateBtn.disabled = true;
+            }
+        }
+
+        // Adicionar listeners para atualizar o total
+        document.querySelectorAll('.ball-percentage').forEach(input => {
+            input.addEventListener('input', updatePercentageTotal);
+        });
+
+        // Atualizar estado inicial do botão
+        updatePercentageTotal();
+
+        // Função principal de cálculo
+        function calculateCaptureChance() {
+            const resultDiv = document.getElementById('result');
+
+            try {
+                // 1. Obter configuração básica
+                const baseDiceSides = parseInt(document.getElementById('diceSides').value);
+                const targetProbability = parseFloat(document.getElementById('targetProbability').value) / 100;
+
+                if (baseDiceSides < 2) {
+                    throw new Error('O dado deve ter pelo menos 2 lados.');
+                }
+                if (targetProbability <= 0 || targetProbability >= 1) {
+                    throw new Error('A probabilidade deve estar entre 0.0001% e 99.9999%.');
+                }
+
+                // 2. Calcular redução dos itens
+                let itemReduction = 0;
+
+                if (document.getElementById('item-clover').checked) {
+                    itemReduction += parseFloat(document.getElementById('item-clover-value').value);
+                }
+                if (document.getElementById('item-totem').checked) {
+                    itemReduction += parseFloat(document.getElementById('item-totem-value').value);
+                }
+                if (document.getElementById('item-bonus').checked) {
+                    itemReduction += parseFloat(document.getElementById('item-bonus-value').value);
+                }
+                if (document.getElementById('item-chocolate').checked) {
+                    itemReduction += parseFloat(document.getElementById('item-chocolate-value').value);
+                }
+
+                // Aplicar redução dos itens ao número de lados do dado
+                const diceSidesAfterItems = baseDiceSides * (1 - itemReduction / 100);
+
+                // 3. Obter chance de critical catch
+                const criticalChance = parseFloat(document.querySelector('input[name="critical"]:checked').value) / 100;
+
+                // 4. Coletar informações das pokéballs (porcentagens)
+                const ballsUsed = [];
+                let totalPercentage = 0;
+
+                pokeballs.forEach(ball => {
+                    const percentage = parseFloat(document.getElementById(ball.id).value) || 0;
+                    if (percentage > 0) {
+                        ballsUsed.push({ rate: ball.rate, percentage: percentage });
+                        totalPercentage += percentage;
+                    }
+                });
+
+                // Validar total de porcentagem
+                if (totalPercentage > 100) {
+                    throw new Error('O total das porcentagens não pode exceder 100%!');
+                }
+
+                // 5. Calcular probabilidade de captura considerando tudo
+                let totalCaptureChance = 0;
+
+                if (totalPercentage > 0) {
+                    // Calcular chance acumulada considerando as pokéballs usadas
+                    ballsUsed.forEach(ball => {
+                        const proportion = ball.percentage / 100; // Converte % para proporção
+
+                        // Chance base com essa pokéball (considerando rate)
+                        const effectiveDiceSides = diceSidesAfterItems / ball.rate;
+                        const baseChancePerThrow = 1 / effectiveDiceSides;
+
+                        // Chance com critical (dobra a chance = divide lados pela metade)
+                        const criticalDiceSides = effectiveDiceSides / 2;
+                        const criticalChancePerThrow = 1 / criticalDiceSides;
+
+                        // Chance combinada por jogada (normal + critical)
+                        const combinedChancePerThrow = (1 - criticalChance) * baseChancePerThrow +
+                            criticalChance * criticalChancePerThrow;
+
+                        totalCaptureChance += proportion * combinedChancePerThrow;
+                    });
+
+                    // Calcular N com a chance média
+                    const failureChance = 1 - totalCaptureChance;
+                    const n = Math.log(1 - targetProbability) / Math.log(failureChance);
+
+                    displayResult({
+                        n: n,
+                        baseDiceSides: baseDiceSides,
+                        diceSidesAfterItems: diceSidesAfterItems,
+                        itemReduction: itemReduction,
+                        criticalChance: criticalChance * 100,
+                        targetProbability: targetProbability * 100,
+                        totalPercentage: totalPercentage,
+                        ballsUsed: ballsUsed,
+                        avgChancePerThrow: totalCaptureChance * 100
+                    });
+                } else {
+                    throw new Error('Você precisa especificar pelo menos uma Pokéball com porcentagem > 0%!');
+                }
+
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ ${error.message}</div>`;
+                resultDiv.classList.add('show');
+            }
+        }
+
+        function displayResult(data) {
+            const resultDiv = document.getElementById('result');
+
+            let html = `
+                <h3>📊 Resultado do Cálculo</h3>
+                <div class="result-value">${Math.ceil(data.n)} Pokéballs</div>
+                <div class="result-details">
+                    <p><strong>Chance base:</strong> 1 em ${data.baseDiceSides.toFixed(2)} (${(100 / data.baseDiceSides).toFixed(4)}%)</p>
+            `;
+
+            if (data.itemReduction > 0) {
+                html += `<p><strong>Redução por itens:</strong> ${data.itemReduction.toFixed(1)}% → 1 em ${data.diceSidesAfterItems.toFixed(2)} (${(100 / data.diceSidesAfterItems).toFixed(4)}%)</p>`;
+            }
+
+            if (data.criticalChance > 0) {
+                html += `<p><strong>Critical Catch:</strong> ${data.criticalChance}% de chance de dobrar a captura</p>`;
+            }
+
+            // Mostrar detalhes das pokéballs usadas
+            if (data.ballsUsed && data.ballsUsed.length > 0) {
+                html += `<p><strong>Distribuição das Pokéballs:</strong></p><ul style="text-align: left; display: inline-block; margin: 10px auto;">`;
+                data.ballsUsed.forEach(ball => {
+                    const ballNames = {
+                        4: 'Ultra/Premier Ball',
+                        5: 'Engineer Ball',
+                        6: 'Nightmare Ball',
+                        10: 'Beast Ball'
+                    };
+                    html += `<li>${ballNames[ball.rate] || `Rate ${ball.rate}x`}: ${ball.percentage.toFixed(1)}%</li>`;
+                });
+                html += `</ul>`;
+            }
+
+            html += `<p><strong>Chance média por jogada:</strong> ${data.avgChancePerThrow.toFixed(4)}%</p>`;
+            html += `<p><strong>Probabilidade desejada:</strong> ${data.targetProbability}%</p>`;
+            html += `<p>💡 <strong>Você precisará jogar aproximadamente ${Math.ceil(data.n)} Pokéballs</strong> (com a distribuição informada) para ter ${data.targetProbability}% de chance de capturar!</p>`;
+
+            if (data.totalPercentage < 100) {
+                html += `<p style="color: #ff9800;">⚠️ <em>Nota: Você informou apenas ${data.totalPercentage.toFixed(1)}% das pokéballs. Os ${(100 - data.totalPercentage).toFixed(1)}% restantes não foram considerados no cálculo.</em></p>`;
+            }
+
+            html += `</div>`;
+
+            resultDiv.innerHTML = html;
+            resultDiv.classList.add('show');
+        }
+
+        // Event listeners
+        document.getElementById('calculateBtn').addEventListener('click', calculateCaptureChance);
+
+        // Modal controls
+        const infoBtn = document.getElementById('infoBtn');
+        const infoModal = document.getElementById('infoModal');
+        const closeModal = document.getElementById('closeModal');
+
+        infoBtn.addEventListener('click', () => {
+            infoModal.classList.add('show');
+        });
+
+        closeModal.addEventListener('click', () => {
+            infoModal.classList.remove('show');
+        });
+
+        // Fechar modal ao clicar fora do conteúdo
+        infoModal.addEventListener('click', (e) => {
+            if (e.target === infoModal) {
+                infoModal.classList.remove('show');
+            }
+        });
+
+        // Fechar modal com tecla ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && infoModal.classList.contains('show')) {
+                infoModal.classList.remove('show');
+            }
+        });
+
+        // Auto-calcular quando houver mudanças (opcional)
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', () => {
+                // Você pode descomentar a linha abaixo para cálculo automático
+                // calculateCaptureChance();
+            });
+        });
+    </script>
+</body>
+
+</html>
