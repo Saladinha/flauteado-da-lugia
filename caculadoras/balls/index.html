@@ -801,20 +801,21 @@
             <div class="modal-section">
                 <h3>4️⃣ Critical Catch (Evento Probabilístico)</h3>
                 <div class="code-block">
-                    Chance Normal = Chance com Ball<br>
-                    Chance Crítica = Chance com Ball × 2 (dobra a chance)<br>
+                    Chance Normal = (1/Dado) × (1 + Itens%) × BallRate<br>
+                    Chance Crítica = (1/Dado) × (1 + Itens%) × (BallRate × 2)<br>
                     <br>
                     Chance Média = (1 - C%) × Chance Normal + C% × Chance Crítica
                 </div>
                 <p>
-                    <strong>Como funciona:</strong> O critical catch NÃO é um bônus permanente.
-                    Em <span class="highlight">X% das jogadas</span>, você terá sorte e a chance
-                    <strong>daquela jogada específica</strong> será dobrada!
+                    <strong>Como funciona:</strong> O critical catch NÃO multiplica toda a chance.
+                    Em <span class="highlight">X% das jogadas</span>, você terá sorte e <strong>apenas o rate da ball</strong>
+                    será dobrado naquela jogada específica!
                 </p>
                 <p>
-                    <strong>Exemplo:</strong> Chance de 5.2% (itens + Ultra Ball) com 10% de critical catch:<br>
-                    • Em 90% das jogadas: chance de 5.2%<br>
-                    • Em 10% das jogadas: chance de 10.4% (dobrada!)<br>
+                    <strong>Exemplo:</strong> Dado 100, +30% itens, Ultra Ball (4x), 10% de critical:<br>
+                    • Chance base com itens: 1% × 1.3 = 1.3%<br>
+                    • Em 90% das jogadas: 1.3% × 4 = <span class="highlight">5.2%</span><br>
+                    • Em 10% das jogadas: 1.3% × 8 = <span class="highlight">10.4%</span> (rate dobrado!)<br>
                     • Média ponderada: 0.9 × 5.2% + 0.1 × 10.4% = <span class="highlight">5.72%</span>
                 </p>
             </div>
@@ -852,13 +853,14 @@
                     <li><strong>1º:</strong> Chance base = 1 / Lados do Dado</li>
                     <li><strong>2º:</strong> Itens <strong>multiplicam</strong> a chance base (ex: +30% → ×1.3)</li>
                     <li><strong>3º:</strong> Rate da Pokéball <strong>multiplica</strong> a chance com itens (ex: Ultra Ball ×4)</li>
-                    <li><strong>4º:</strong> Critical Catch tem X% de chance de <strong>dobrar</strong> o resultado final de cada jogada</li>
+                    <li><strong>4º:</strong> Critical Catch tem X% de chance de <strong>dobrar apenas o rate da ball</strong> naquela jogada</li>
                     <li><strong>5º:</strong> Distribuição de balls pondera as diferentes chances</li>
                     <li><strong>6º:</strong> Distribuição geométrica calcula quantas tentativas são necessárias</li>
                 </ul>
                 <p style="margin-top: 15px;">
                     <strong>📐 Fórmula completa:</strong><br>
-                    <span class="highlight">Chance Final = (1/Dado) × (1 + Itens%) × BallRate × [1 + CriticalChance × 1]</span>
+                    <span class="highlight">Chance Final = (1/Dado) × (1 + Itens%) × (BallRate × (1 + CriticalChance))</span><br>
+                   
                 </p>
             </div>
         </div>
@@ -994,8 +996,8 @@
                         // Chance base: (1/baseDiceSides) × itemMultiplier × ballRate
                         const baseChancePerThrow = (1 / baseDiceSides) * itemMultiplier * ball.rate;
 
-                        // Chance com critical (dobra a chance)
-                        const criticalChancePerThrow = baseChancePerThrow * 2;
+                        // Chance com critical (dobra apenas o rate da ball)
+                        const criticalChancePerThrow = (1 / baseDiceSides) * itemMultiplier * (ball.rate * 2);
 
                         // Chance combinada por jogada (normal + critical)
                         const combinedChancePerThrow = (1 - criticalChance) * baseChancePerThrow +
